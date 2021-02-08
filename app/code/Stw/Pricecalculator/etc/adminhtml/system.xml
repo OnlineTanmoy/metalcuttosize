@@ -1,0 +1,630 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+      <!-- for add new tab in Magento2 system configuration section -->
+        <tab id="webkul" translate="label" sortOrder="10">
+             <label>STW</label>
+        </tab>
+        <!-- for create section -->
+        <section id="sleekaccordian2" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Metal base price</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_Sleekaccordian::configuration</resource>
+
+         <group id="metalgroup" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Metal Price</label>
+                               
+                <field id="aluminium_price" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium Price</label>
+                </field>
+                <field id="copper_price" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Copper Price</label>
+                </field>
+                <field id="brass_price" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brass Price</label>
+                </field>
+                <field id="midsteel_price" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel price</label>
+                </field>
+                <field id="stainlesssteel_price" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Stainless Steel Price</label>
+                </field>
+            </group>
+         </section>   
+        <section id="sleekaccordian" translate="label" type="text" sortOrder="321" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Weight Manager</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_Sleekaccordian::configuration</resource>
+            <!-- create group for fields in section -->
+            <group id="f_angle" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Angle</label>
+                 <field id="s_angle" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel : (side width × 2 - thickness) × thickness × length(m) × (custom value)<!-- 0.00800 --> </label>
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+				  <field id="mid_angle" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel : (side width × 2 - thickness) × thickness × length(m) × (custom value)<!-- 0.00800 --> </label>
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				  <field id="cop_angle" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : (side width × 2 - thickness) × thickness × length(m) × (custom value)<!-- 0.00800 --> </label>
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				  <field id="bras_angle" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass :(side width × 2 - thickness) × thickness × length(m) × (custom value)<!-- 0.00800 --> </label>
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>	
+				  <field id="alu_angle" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium : (side width × 2 - thickness) × thickness × length(m) × (custom value)<!-- 0.00800 --> </label>
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				     
+
+            </group>
+             <group id="f_round_bar" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Round bar</label>
+                
+                <field id="steel__round_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel : dia.(mm)×dia.(mm)×length(m)× (custom value) <!--                   DIA (mm) X DIA (mm) X 0.0019 = Wt. Per Feet --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+                <field id="mid_round_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel : dia.(mm)×dia.(mm)×length(m)× (custom value) <!--                   DIA (mm) X DIA (mm) X 0.0019 = Wt. Per Feet --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>				
+                <field id="cop_round_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : dia.(mm)×dia.(mm)×length(m)×(custom value)<!-- 0.00698 --><!--                   DIA (mm) X DIA (mm) X 0.0019 = Wt. Per Feet --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="brass_round_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass : dia.(mm)×dia.(mm)×length(m)×(custom value)<!-- 0.00668 --><!--                   DIA (mm) X DIA (mm) X 0.0019 = Wt. Per Feet --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="alu_round_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium : dia.(mm)×dia.(mm)×length(m)×(custom value)<!-- 0.0022 --><!--                   DIA (mm) X DIA (mm) X 0.0019 = Wt. Per Feet --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                
+
+            </group>
+            <group id="f_square_bar" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Square bar</label>       
+
+				
+                <field id="midsteel_square_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label> MidSteel : width(mm)×  width(mm)×length(m)×(custom value)<!-- 0.00785. --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+                <field id="steel_square_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label> Steel : width(mm)×  width(mm)×length(m)×(custom value)<!-- 0.00785. --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+				
+                <field id="alu_square_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium :width(mm)×width(mm)×length(m)×(custom value)<!-- 0.0028 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="brass_square_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass :width(mm)×width(mm)×length(m)×(custom value)<!-- 0.0085 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="copper_square_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper :width(mm)×width(mm)×length(m)×(custom value)<!-- 0.0089 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+               
+
+            </group>
+            <group id="f_channel" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Channel</label>       
+
+                <field id="s_channel" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>length X weight X thickness X (custom value)</label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                
+
+            </group>
+            <group id="f_flat_bar" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Flat bar</label>       
+
+                  <field id="steel_flat_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Stainless Steel : edge width(mm)×thickness(mm)×length(m)×(custom value)<!-- 0.00785 --><!--  Width (mm) X Thick  (mm) X 0.00798 = Wt. Per Mtr. --> </label>                      
+                      <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                  <field id="mid_flat_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel : edge width(mm)×thickness(mm)×length(m)×(custom value)<!-- 0.00785 --><!--  Width (mm) X Thick  (mm) X 0.00798 = Wt. Per Mtr. --> </label>                      
+                      <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                  <field id="alu_flat_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminum : edge width(mm)×thickness(mm)×length(m)×(custom value)<!-- 0.00785 --><!--  Width (mm) X Thick  (mm) X 0.00798 = Wt. Per Mtr. --> </label>                      
+                      <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                  <field id="copper_flat_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : edge width(mm)×thickness(mm)×length(m)×(custom value)<!-- 0.00785 --><!--  Width (mm) X Thick  (mm) X 0.00798 = Wt. Per Mtr. --> </label>                      
+                      <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>              
+                <field id="bras_flat_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass : edge width(mm)×thickness(mm)×length(m)×(custom value)<!-- 0.00785 --><!--  Width (mm) X Thick  (mm) X 0.00798 = Wt. Per Mtr. --> </label>                      
+                      <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+
+            </group>
+              <group id="f_t_section" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> T-section</label>       
+
+
+
+                <field id="s_t_section" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>length X weight X thickness X (custom value)</label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+             
+
+            </group>
+             <group id="f_round_tube" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Round tube</label>       
+
+				<field id="mid_round_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel : (OD-wall thickness)×wall thickness(mm)×length(m)× (custom value)<!-- 0.02466 --> </label> <!-- • Formula: (OD-wall thickness)×wall thickness(mm)×length(m)×0.02466 -->
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="steel_round_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel : (OD-wall thickness)×wall thickness(mm)×length(m)× (custom value)<!-- 0.02466 --> </label> <!-- • Formula: (OD-wall thickness)×wall thickness(mm)×length(m)×0.02466 -->
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="brass_round_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass : (OD-wall thickness)×wall thickness(mm)×length(m)×(custom value)<!-- 0.0267 --> </label> <!-- • Formula: (OD-wall thickness)×wall thickness(mm)×length(m)×0.02466 -->
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="cop_round_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : (OD-wall thickness)×thickness(mm)×length(m)× (custom value) <!-- 0.02796 --> </label> <!-- • Formula: (OD-wall thickness)×wall thickness(mm)×length(m)×0.02466 -->
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="alu_round_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium :  (OD-wall thickness)×wall thickness(mm)×length(m)×(custom value)<!-- 0.02466 --> </label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+
+            </group>
+            <group id="f_square_tube" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Square tube</label>       
+
+
+                <field id="steel_square_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel : 2(width)×thickness×length(m)× (custom value)
+<!-- 0.004850 (edge length + edge width )× 2 × thickness × length(m) ×(custom value) 0.00785 --> </label> <!-- • Formula: (OD-wall thickness)×wall thickness(mm)×length(m)×0.02466 -->                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+			   <field id="mid_square_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel : 2(width)×thickness×length(m)× (custom value)
+<!-- 0.004850 (edge length + edge width )× 2 × thickness × length(m) ×(custom value) 0.00785 --> </label> <!-- • Formula: (OD-wall thickness)×wall thickness(mm)×length(m)×0.02466 -->
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+				 <field id="brass_square_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass : 2(width)×thickness×length(m)× (custom value) </label>
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="cop_square_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : 2(width)×thickness×length(m)× (custom value)</label> 
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="alu_square_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium : 2(width)×thickness×length(m)× (custom value)</label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+               <group id="f_weld_mesh" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Weld mesh</label>       
+ 
+                <field id="s_weld_mesh" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>  length X weight X thickness X (custom value)</label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field> 
+                
+
+            </group>
+             <group id="f_hexagon" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Hexagon</label>       
+ 
+                <field id="steel_hexagon" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel : Thickness(mm)*thickness(mm)*length(m)×(custom value)<!-- 0.0068  --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+				
+				<field id="mid_hexagon" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel : Thickness(mm)*thickness(mm)*length(m)×(custom value)<!-- 0.0068  --></label>                    
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>                </field>
+				
+				
+                <field id="cop_hexagon" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : Thickness(mm)*thickness(mm)*length(m)×(custom value)<!-- 0.0077 --> </label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="bras_hexagon" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass : Thickness(mm)*thickness(mm)*length(m)×(custom value)<!-- 0.00736 --> </label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="alu_hexagon" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminium : Thickness(mm)*thickness(mm)*length(m)×(custom value)<!-- 0.00736 --> </label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+
+            </group>
+             <group id="f_sheet" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sheet</label>       
+ 
+                <field id="steel_sheet" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel :Length (mtrs) X  Width(mtrs) X Thick (mm) X (custom value) <!--  8.068 -->  </label>                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+				
+				
+                <field id="mid_sheet" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel :Length (mtrs) X  Width(mtrs) X Thick (mm) X (custom value) <!--  8.068 -->  </label>                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 	
+				
+				
+                <field id="cop_sheet" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : Length (Mtr.) X Width (Mtr.) X Thick (mm)×(custom value)<!-- 0.0089 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="alu_sheet" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminum :Length (Mtr.) X Width (Mtr.) X Thick (mm) X (custom value)<!-- 2.69 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field> 
+				  <field id="bras_sheet" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass :Length (Mtr.) X Width (Mtr.) X Thick (mm) X (custom value)<!-- 2.69 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group> 
+
+
+  <group id="f_splashback" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Splashback</label>       
+ 
+                <field id="steel_splashback" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel :Length (mtrs) X  Width(mtrs) X Thick (mm) X (custom value) <!--  8.068 -->  </label>                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+        
+        
+                <field id="mid_splashback" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel :Length (mtrs) X  Width(mtrs) X Thick (mm) X (custom value) <!--  8.068 -->  </label>                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>  
+        
+        
+                <field id="cop_splashback" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : Length (Mtr.) X Width (Mtr.) X Thick (mm)×(custom value)<!-- 0.0089 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="alu_splashback" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminum :Length (Mtr.) X Width (Mtr.) X Thick (mm) X (custom value)<!-- 2.69 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field> 
+          <field id="bras_splashback" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass :Length (Mtr.) X Width (Mtr.) X Thick (mm) X (custom value)<!-- 2.69 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>     
+
+
+              <group id="f_treadplate" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Tread Plate</label>       
+ 
+                <field id="steel_treadplate" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Steel :Length (mtrs) X  Width(mtrs) X Thick (mm) X (custom value) <!--  8.068 -->  </label>                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+        
+        
+                <field id="mid_treadplate" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Mild steel :Length (mtrs) X  Width(mtrs) X Thick (mm) X (custom value) <!--  8.068 -->  </label>                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>  
+        
+        
+                <field id="cop_treadplate" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Copper : Length (Mtr.) X Width (Mtr.) X Thick (mm)×(custom value)<!-- 0.0089 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="alu_treadplate" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Aluminum :Length (Mtr.) X Width (Mtr.) X Thick (mm) X (custom value)<!-- 2.69 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field> 
+          <field id="bras_treadplate" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Brass :Length (Mtr.) X Width (Mtr.) X Thick (mm) X (custom value)<!-- 2.69 --></label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>     
+
+
+               <!-- <field id="s_other" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Other</label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field> -->
+        </section>
+
+                <section id="sleekaccordian1" translate="label" type="text" sortOrder="322" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Price manager </label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_Sleekaccordian::configuration</resource>
+            <!-- create group for fields in section -->
+            <group id="f_angle1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Angle</label>
+                <!--                 <label>Price calculation formula for Angle</label>
+ -->                 <field id="p_angle" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>      Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+             <group id="f_round_bar1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Round bar</label>
+
+                 <field id="p_round_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+            <group id="f_square_bar1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Square Bar</label>       
+
+                 <field id="p_square_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+            <group id="f_square_tube1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Square Tube</label>       
+
+                 <field id="p_square_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+            <group id="f_channel1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Channel</label>       
+
+                 <field id="p_channel" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+            <group id="f_flat_bar1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Flat bar</label>       
+
+
+                 <field id="p_flat_bar" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+              <group id="f_t_section1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> T-section</label>       
+
+                 <field id="p_t_section" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+             <group id="f_round_tube1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Round tube</label>       
+
+                 <field id="p_round_tube" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+               <group id="f_weld_mesh1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Weld mesh</label>       
+ 
+                 <field id="p_weld_mesh" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+             <group id="f_hexagon1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Hexagon</label>       
+
+                 <field id="p_hexagon" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+        <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+            </group>
+             <group id="f_sheet1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sheet</label> 
+                 <field id="p_sheet" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+                          <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="f_splashback1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Splashback</label> 
+                 <field id="p_splashback" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+                          <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="f_treadplate1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Tread Plate</label> 
+                 <field id="p_treadplate" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Weight / full weight X (custom value) X fullprice</label>
+                          <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>              
+               <!-- <field id="s_other" translate="label comment" sortOrder="7" type="text" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Other</label>
+                     
+ <validate>validate-number required-entry</validate>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field> -->
+        </section>
+
+    </system>
+</config>

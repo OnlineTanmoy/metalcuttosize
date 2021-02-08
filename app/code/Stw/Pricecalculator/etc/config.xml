@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+     <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+        <default>
+            <sleekaccordian2>
+                <metalgroup>
+                    <aluminium_price>1</aluminium_price>
+                    <copper_price>1</copper_price>
+                    <brass_price>1</brass_price>
+                    <midsteel_price>1</midsteel_price>
+                    <stainlesssteel_price>1</stainlesssteel_price>
+                </metalgroup>
+            </sleekaccordian2>
+            <sleekaccordian>
+                <f_angle>
+                    <s_angle> 0.00800</s_angle>                  
+					<mid_angle> 0.00800</mid_angle>                  
+                    <cop_angle> 0.00800</cop_angle>                  
+                    <bras_angle> 0.00800</bras_angle>                  
+                    <alu_angle> 0.00800</alu_angle>             
+				</f_angle>
+                 <f_round_bar>
+                    <steel__round_bar>0.0019</steel__round_bar>
+					<mid_round_bar>0.0019</mid_round_bar>                 
+                     <cop_round_bar>0.00698</cop_round_bar>                  
+                    <brass_round_bar>0.00668</brass_round_bar>                  
+                    <alu_round_bar>0.0022</alu_round_bar>                  
+                </f_round_bar>
+                <f_square_bar>
+                    <steel_square_bar>0.00785</steel_square_bar>                     <midsteel_square_bar>0.00785</midsteel_square_bar>                  
+                 
+                    <brass_square_bar>0.0085</brass_square_bar>                  
+                    <copper_square_bar>0.0089</copper_square_bar>                  
+                    <alu_square_bar>0.0028</alu_square_bar>                  
+                </f_square_bar>
+                <f_channel>
+                    <s_channel> 0.00800</s_channel>                  
+                </f_channel>
+                <f_flat_bar>
+                    <steel_flat_bar>0.00798</steel_flat_bar>                  
+                    <mid_flat_bar>0.00798</mid_flat_bar>                  
+                    <alu_flat_bar>0.00798</alu_flat_bar>                  
+                    <copper_flat_bar>0.00798</copper_flat_bar>                  
+                    <bras_flat_bar>0.00798</bras_flat_bar>                  
+                </f_flat_bar>
+                  <f_t_section>
+                    <s_t_section>0.00798</s_t_section>                  
+                </f_t_section>
+               <f_round_tube>
+                    <steel_round_tube>0.02466 </steel_round_tube>                     <mid_round_tube>0.02466 </mid_round_tube>                  
+                 
+                    <brass_round_tube>0.0267 </brass_round_tube>                  
+                    <cop_round_tube>0.02796</cop_round_tube>                  
+                    <alu_round_tube>0.02466</alu_round_tube>                  
+                </f_round_tube>
+                 <f_square_tube>
+                    <steel_square_tube>0.004850</steel_square_tube>                     <mid_square_tube>0.004850</mid_square_tube>
+						<brass_square_tube>0.004850</brass_square_tube>
+						<cop_square_tube>0.004850</cop_square_tube>
+						<alu_square_tube>0.004850</alu_square_tube>
+                 
+                </f_square_tube>
+                <f_weld_mesh>
+                    <s_weld_mesh>0.004850</s_weld_mesh>                  
+                </f_weld_mesh>
+                <f_hexagon>
+                    <steel_hexagon>0.0068</steel_hexagon>                       <mid_hexagon>0.0068</mid_hexagon>                  
+               
+                    <cop_hexagon>0.0077</cop_hexagon>                  
+                    <bras_hexagon> 0.00736</bras_hexagon>                  
+                    <alu_hexagon>0.00736</alu_hexagon>                  
+                </f_hexagon>
+                <f_sheet>
+                    <cop_sheet>8.068</cop_sheet>                  
+                    <alu_sheet> 2.69 </alu_sheet>                  
+                    <steel_sheet>0.004850</steel_sheet>
+                    <bras_sheet>0.004850</bras_sheet>
+                    <mid_sheet>0.004850</mid_sheet>
+                </f_sheet>
+                <f_splashback>
+                    <cop_splashback>8.068</cop_splashback>                  
+                    <alu_splashback> 2.69 </alu_splashback>                  
+                    <steel_splashback>0.004850</steel_splashback>
+                    <bras_splashback>0.004850</bras_splashback>
+                    <mid_splashback>0.004850</mid_splashback>
+                </f_splashback>
+                <f_treadplate>
+                    <cop_treadplate>8.068</cop_treadplate>                  
+                    <alu_treadplate> 2.69 </alu_treadplate>                  
+                    <steel_treadplate>0.004850</steel_treadplate>
+                    <bras_treadplate>0.004850</bras_treadplate>
+                    <mid_treadplate>0.004850</mid_treadplate>
+                </f_treadplate>
+
+            </sleekaccordian>
+            <sleekaccordian1>
+  <f_angle1>
+                    <p_angle> 1.12</p_angle>                  
+                </f_angle1>
+                 <f_round_bar1>
+                    <p_round_bar>1.3</p_round_bar>
+                </f_round_bar1>
+                <f_square_bar1>
+                    <p_square_bar>1.5</p_square_bar>   
+                </f_square_bar1>
+                <f_channel1>
+                    <p_channel>1S</p_channel>                  
+                </f_channel1>
+                <f_flat_bar1>
+                    <p_flat_bar>1</p_flat_bar>                  
+                </f_flat_bar1>
+                  <f_t_section1>
+                    <p_t_section>1</p_t_section>                  
+                </f_t_section1>
+               <f_round_tube1>  
+                    <p_round_tube>1</p_round_tube>                  
+                </f_round_tube1>
+                 <f_square_tube1>
+                    <p_square_tube>1</p_square_tube>                  
+                </f_square_tube1>
+                <f_weld_mesh1>
+                    <p_weld_mesh>1</p_weld_mesh>                  
+                </f_weld_mesh1>
+                <f_hexagon1>
+                    <p_hexagon>1</p_hexagon>
+                </f_hexagon1>
+                 <f_sheet1>
+                    <p_sheet>1.5</p_sheet>  
+                </f_sheet1>            
+            </sleekaccordian1>
+        </default>
+    </config>

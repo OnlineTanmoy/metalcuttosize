@@ -1,0 +1,101 @@
+<?php ?>
+
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<!--[if IE ]>
+  <link href="iecss.css" rel="stylesheet" type="text/css">
+<![endif]-->
+<?php
+//$helper = $this->helper('Solwin\Cpanel\Helper\Data');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$helper = $objectManager->create('Solwin\Cpanel\Helper\Data');
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+$mediaUrl2 = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+$baseUrl = $helper->getBaseUrl();
+$mediaurl = $helper->getMediaUrl() . 'social/';
+
+//$helper = $this->helper('Solwin\Cpanel\Helper\Data');
+$mediasocialurl = $helper->getMediaUrl() . 'social/';
+
+$shipping1 = $helper->getshipping1();
+$shipping2 = $helper->getshipping2();
+$shipping3 = $helper->getshipping3();
+$firstblock = $mediaurl . $helper->getfirstblock();
+$firstblock_link = $helper->getfirstblock_link();
+$secondblock = $mediaurl . $helper->getsecondblock();
+$secondblock_link = $helper->getsecondblock_link();
+
+
+
+
+?>
+<div class="homepage-bar" style="background-color: #282d3b; border: 0; padding: 5px 0; margin-bottom: 20px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4" style="text-align: left;"><i class="porto-icon-shipping" style="font-size: 40px;"></i>
+				<div class="text-area">
+					<h3><?php echo $shipping1; ?></h3>
+				</div>
+			</div>
+			<div class="col-lg-4" style="text-align: center;"><i class="porto-icon-pound" style="font-size: 40px;"></i>
+				<div class="text-area">
+					<h3><?php echo $shipping2; ?></h3>
+				</div>
+			</div>
+			<div class="col-lg-4" style="text-align: center;"><i class="porto-icon-sliders" style="font-size: 40px;"></i>
+				<div class="text-area">
+					<h3><?php echo $shipping3; ?></h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="home-top-container homepage-grid-banner">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5">
+			<div class="banner banner-image"><a href="<?php echo $firstblock_link; ?>"> <img src="<?php echo $firstblock; ?>" alt=""><!-- <img src="{{media url="wysiwyg/home/aluminium-bars.jpg"}}" alt=""> --></a></div>
+			<!-- End .banner --></div>
+			<div class="col-lg-5">
+			<div class="banner banner-image"><a href="<?php echo $secondblock_link; ?>"> <img src="<?php echo $secondblock; ?>" alt=""> <!-- <img src="{{media url="wysiwyg/home/aluminium-bars.jpg"}}" alt=""> --></a></div>
+			<!-- End .banner --></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+            
+            require(['jquery','cpowlcarousel'],function($){
+
+                $("#featured_products .products-grid .product-items").owlCarousel({autoplay:true,autoplayTimeout:5000,autoplayHoverPause:true,loop:true,navRewind:true,margin:0,nav:true,navText:["<em class='porto-icon-angle-left'></em>","<em class='porto-icon-angle-right'></em>"],dots:false,responsive:{0:{items:2},768:{items:3},992:{items:3},1200:{items:4}}});
+
+                
+            $("#category_slider .owl-carousel").owlCarousel({items:4,autoplay:true,autoplayTimeout:5000,autoplayHoverPause:true,loop:true,navRewind:true,margin:20,pagination:false,navigation:true,nav:true,navText:["<em class='porto-icon-left-open-big'></em>","<em class='porto-icon-right-open-big'></em>"],dots:false,responsive:{0:{items:2},768:{items:3},992:{items:3},1200:{items:4}} });
+                
+            $("#brands-slider-demo-10 .owl-carousel").owlCarousel({autoplay:true,autoplayTimeout:5000,autoplayHoverPause:true,pagination:false,navigation:true,navigationText: ["<em class='porto-icon-left-open-big'></em>","<em class='porto-icon-right-open-big'></em>"],
+margin:30,nav:true,navText:["<em class='porto-icon-left-open-big'></em>","<em class='porto-icon-right-open-big'></em>"],dots:false,loop:true,responsive:{0:{items:2},640:{items:3},768:{items:4},992:{items:5},1200:{items:5}}});
+
+        });
+        </script>
+		<style>
+.footer-bottom img {
+    width: auto;
+}		@media screen and (max-width: 576px) 
+		{
+	.modes-mode{border-radius:0} 
+    .cms-home  .columns {  display: block!important; }
+		.justarrived span.title { font: 400 1.2rem/1.1 "Oswald", sans-serif;} }
+		</style>

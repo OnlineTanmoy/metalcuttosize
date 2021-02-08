@@ -1,0 +1,46 @@
+<?php
+/**
+ * Magiccart 
+ * @category 	Magiccart 
+ * @copyright 	Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license 	http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2018-05-16 22:57:12
+ * @@Modify Date: 2020-07-23 17:45:08
+ * @@Function:
+ */
+ 
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$media_url = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+ ?>
+<?php
+
+
+		/*	$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+			$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+			$connection = $resource->getConnection();
+			$tableName = $resource->getTableName('magiccart_lookbook'); //gives table name with prefix
+ 
+			//Select Data from table
+			 $sql = "ALTER TABLE  ". $tableName." 
+MODIFY  `link` LONGTEXT ;  "; 
+ $sql = "SELECT *
+FROM  " . $tableName. ""; 
+			$result = $connection->fetchAll($sql);  print_r($result); */
+
+$productCollection = $block->getLookbook();   ?>
+<div class="container col-12 justarrived">
+	<div class="row">
+<?php foreach ($productCollection as $product) {   ?>
+		<div class="col-2 dropdown1 t" >
+			<a class="dropbtn" href="#"><span class="title"><?php echo $product->getData('title') ?></span> 
+				<img src="<?php echo $media_url.$product->getData('image') ?>" alt=""> 
+			</a>
+			<?php $content =  $product->getData('link');  echo $block->getConfigContent($content);  ?>
+		</div>
+<?php } ?>
+	</div>
+</div>
+

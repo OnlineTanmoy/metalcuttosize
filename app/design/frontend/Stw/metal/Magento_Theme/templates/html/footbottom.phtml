@@ -1,0 +1,296 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<!--[if IE ]>
+  <link href="iecss.css" rel="stylesheet" type="text/css">
+<![endif]-->
+<?php
+$helper = $this->helper('Solwin\Cpanel\Helper\Data');
+$showsocial = $helper->getShowsocialicons();
+
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+$mediaUrl2 = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+$baseUrl = $helper->getBaseUrl();
+$mediaurl = $helper->getMediaUrl() . 'social/';
+$f_logo = $helper->getFooterlogo();
+$footer_logo = $mediaurl . $helper->getFooterlogo();
+$helper = $this->helper('Solwin\Cpanel\Helper\Data');
+$mediasocialurl = $helper->getMediaUrl() . 'social/';
+$newsletter_title = $helper->getFooternewslettertitle();
+$newsletter_text = $helper->getFooternewslettertext();
+$newsletter_show = $helper->getShowfooternewsletter();
+?>
+<div class="page-footer">
+<!--     <div class="fs-main pad-main">
+        <div class="page-main">
+            <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer_our_services')->toHtml(); ?>
+        </div>
+    </div> -->
+    <div class="page-main">
+        <div class="cp-footer-container">
+            
+            footer  
+
+
+            <div class="footer-middle123 cp-footer-main">
+                <div class="container">
+                    <div class="footer-ribbon">
+                        Get in touch
+                    </div><!-- End .footer-ribbon -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="widget">
+                                        <ul class="contact-info">
+                                            <li>
+                                                <span class="contact-info-label">Address:</span><?php echo $helper->getContactstoreaddress(); ?>
+                                            </li>
+                                            <li>
+                                                <span class="contact-info-label">Phone:</span>Toll Free <a href="tel:">(123) 456-7890</a>
+                                            </li>
+                                            <li>
+                                                <span class="contact-info-label">Email:</span><a href="mailto:<?php echo $helper->getStorecontactemail(); ?>"><?php echo $helper->getStorecontactemail(); ?></a>
+                                            </li>
+                                           <!--  <li>
+                                                <span class="contact-info-label">Working Days/Hours:</span>
+                                                Mon - Sun / 9:00AM - 8:00PM
+                                            </li> -->
+                                        </ul>
+                                    </div><!-- End .widget -->
+                                </div><!-- End .col-md-5 -->
+                                <div class="col-md-3">
+                                    <div class="widget">
+                                        <h4 class="widget-title">My Account</h4>
+                                                                <?php echo $this->getChildHtml('footer_links'); ?>
+
+                                       <!--  <ul class="links">
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="contact.html">Contact Us</a></li>
+                                            <li><a href="my-account.html">My Account</a></li>
+                                            <li><a href="#">Orders History</a></li>
+                                            <li><a href="#">Advanced Search</a></li>
+                                            <li><a href="#" class="login-link">Login</a></li>
+                                        </ul> -->
+                                    </div><!-- End .widget -->
+                                </div><!-- End .col-md-3 -->
+
+                                <div class="col-md-5">
+                                    <div class="widget">
+                                        <h4 class="widget-title">Main Features</h4>
+                                        
+                                        <ul class="links">
+                                            <li><a href="#">Super Fast Magento Theme</a></li>
+                                            <li><a href="#">1st Fully working Ajax Theme</a></li>
+                                            <li><a href="#">20 Unique Homepage Layouts</a></li>
+                                            <li><a href="#">Powerful Admin Panel</a></li>
+                                            <li><a href="#">Mobile & Retina Optimized</a></li>
+                                        </ul>
+                                    </div><!-- End .widget -->
+                                </div><!-- End .col-md-5 -->
+                            </div><!-- End .row -->
+                        </div><!-- End .col-lg-8 -->
+                                    <?php if ($newsletter_show) { ?>
+
+                        <div class="col-lg-4">
+                            <div class="widget widget-newsletter">
+                                <h4 class="widget-title">                      <?php echo $newsletter_title; ?> </h4>
+                                <p>                            <?php echo $newsletter_text; ?> </p>
+                                                        <?php echo $this->getChildHtml('footer.newsletter'); ?>
+
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-lg-4 -->             <?php } ?>
+
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+
+            <div class="container cp-footer-main">
+                <div class="footer-bottom">
+                    <p class="footer-copyright">Porto eCommerce. &copy;  2020.  All Rights Reserved</p>
+                    <img src="<?php echo $mediaUrl2; ?>wysiwyg/home/images/payments.png" alt="payment methods" class="footer-payments">
+
+                    <div class="social-icons"> 786786
+                       <?php if ($showsocial) { echo "12345";
+                            $showfacebook = $helper->getShowfacebook();
+                           echo "twitter";echo  $showtwitter = $helper->getShowtwitter();
+							echo "insta"; echo $showinstagram = $helper->getShowinstagram();  
+                            $showlinkedin = $helper->getShowlinkedin();
+                            $showpinterest = $helper->getShowpinterest();
+							
+                            ?>
+                            <ul class="cp-social">
+                                <?php if ($showfacebook) { ?>
+                                    <li><a href="<?php echo $helper->getFacebookurl(); ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <?php } ?>
+                                <?php if ($showtwitter) { ?>
+                                    <li><a href="<?php echo $helper->getTwitterurl(); ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <?php } ?>
+								   <?php if ($showinstagram) { ?>
+                                    <li><a href="<?php echo $helper->getInstagram(); ?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                <?php } ?>
+                                <?php if ($showlinkedin) { ?>
+                                    <li><a href="<?php echo $helper->getLinkdnurl(); ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                <?php } ?>
+                                <?php if ($showpinterest) { ?>
+                                    <li><a href="<?php echo $helper->getPinteresturl(); ?>" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                    </div><!-- End .social-icons -->
+                </div><!-- End .footer-bottom -->
+            </div><!-- End .containr -->
+        </div>
+    </div>
+</div>
+
+
+        <footer class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="footer-ribbon">
+                        Get in touch
+                    </div><!-- End .footer-ribbon -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="widget">
+                                        <ul class="contact-info">
+                                            <li>
+                                                <span class="contact-info-label">Address:</span>123 Street Name, City, England
+                                            </li>
+                                            <li>
+                                                <span class="contact-info-label">Phone:</span>Toll Free <a href="tel:">(123) 456-7890</a>
+                                            </li>
+                                            <li>
+                                                <span class="contact-info-label">Email:</span> <a href="mailto:mail@example.com">mail@example.com</a>
+                                            </li>
+                                            <li>
+                                                <span class="contact-info-label">Working Days/Hours:</span>
+                                                Mon - Sun / 9:00AM - 8:00PM
+                                            </li>
+                                        </ul>
+                                    </div><!-- End .widget -->
+                                </div><!-- End .col-md-5 -->
+                                <div class="col-md-3">
+                                    <div class="widget">
+                                        <h4 class="widget-title">My Account</h4>
+
+                                        <ul class="links">
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="contact.html">Contact Us</a></li>
+                                            <li><a href="my-account.html">My Account</a></li>
+                                            <li><a href="#">Orders History</a></li>
+                                            <li><a href="#">Advanced Search</a></li>
+                                            <li><a href="#" class="login-link">Login</a></li>
+                                        </ul>
+                                    </div><!-- End .widget -->
+                                </div><!-- End .col-md-3 -->
+
+                                <div class="col-md-5">
+                                    <div class="widget">
+                                        <h4 class="widget-title">Main Features</h4>
+                                        
+                                        <ul class="links">
+                                            <li><a href="#">Super Fast Magento Theme</a></li>
+                                            <li><a href="#">1st Fully working Ajax Theme</a></li>
+                                            <li><a href="#">20 Unique Homepage Layouts</a></li>
+                                            <li><a href="#">Powerful Admin Panel</a></li>
+                                            <li><a href="#">Mobile & Retina Optimized</a></li>
+                                        </ul>
+                                    </div><!-- End .widget -->
+                                </div><!-- End .col-md-5 -->
+                            </div><!-- End .row -->
+                        </div><!-- End .col-lg-8 -->
+
+                        <div class="col-lg-4">
+                            <div class="widget widget-newsletter">
+                                <h4 class="widget-title">Subscribe newsletter</h4>
+                                <p>Get all the latest information on Events,Sales and Offers. Sign up for newsletter today</p>
+                                <form action="#">
+                                    <input type="email" class="form-control" placeholder="Email address" required>
+
+                                    <input type="submit" class="btn" value="Subscribe">
+                                </form>
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-lg-4 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+
+            <div class="container">
+                <div class="footer-bottom">
+                    <p class="footer-copyright">Porto eCommerce. &copy;  2018.  All Rights Reserved</p>
+                    <img src="assets/images/payments.png" alt="payment methods" class="footer-payments">
+
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
+                        <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
+                        <a href="#" class="social-icon" target="_blank"><i class="icon-linkedin"></i></a>
+                    </div><!-- End .social-icons -->
+                </div><!-- End .footer-bottom -->
+            </div><!-- End .containr -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+
+
+    <div class="newsletter-popup mfp-hide" id="newsletter-popup-form" style="background-image: url(assets/images/newsletter_popup_bg.jpg)">
+        <div class="newsletter-popup-content">
+            <img src="assets/images/logo-black.png" alt="Logo" class="logo-newsletter">
+            <h2>BE THE FIRST TO KNOW</h2>
+            <p>Subscribe to the Porto eCommerce newsletter to receive timely updates from your favorite products.</p>
+            <form action="#">
+                <div class="input-group">
+                    <input type="email" class="form-control" id="newsletter-email" name="newsletter-email" placeholder="Email address" required>
+                    <input type="submit" class="btn" value="Go!">
+                </div><!-- End .from-group -->
+            </form>
+            <div class="newsletter-subscribe">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="1">
+                        Don't show this popup again
+                    </label>
+                </div>
+            </div>
+        </div><!-- End .newsletter-popup-content -->
+    </div><!-- End .newsletter-popup -->
+    <!-- Add Cart Modal -->
+    <div class="modal fade" id="addCartModal" tabindex="-1" role="dialog" aria-labelledby="addCartModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body add-cart-box text-center">
+            <p>You've just added this product to the<br>cart:</p>
+            <h4 id="productTitle"></h4>
+            <img src="" id="productImage" width="100" height="100" alt="adding cart image">
+            <div class="btn-actions">
+                <a href="cart.html"><button class="btn-primary">Go to cart page</button></a>
+                <a href="#"><button class="btn-primary" data-dismiss="modal">Continue</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+<?php
+$enable = $helper->getShowsharingaddon();
+$pubid = $helper->getAddthispubid();
+
+if ($enable) {
+    ?>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?php echo $pubid; ?>" async="async"></script>
+<?php } ?>

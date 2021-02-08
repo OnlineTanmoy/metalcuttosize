@@ -1,0 +1,567 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct();
+$productid = $block->getProduct()->getId();
+
+ ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+  <div class="" >
+    
+
+    <div id="error-msg" style="display: none"> </div>
+           <a href="javascript:void(0);" class="btn button btn-primary " id="calculate">Calculate price </a>
+            <a href="javascript:void(0);" class="btn button btn-primary "style="display: none" id="Customize">Customize</a>
+           <div id="loading-image" style="display: none;">
+       <img src="<?php echo $block->getViewFileUrl('images/ajax-loader.gif') ?>"  />
+    </div>
+</div>
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var \Magento\Catalog\Block\Product\AbstractProduct $block */ ?>
+<?php $_product = $block->getProduct() ?>
+<?= $block->getProductPriceHtml(
+    $_product,
+    \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+    \Magento\Framework\Pricing\Render::ZONE_ITEM_VIEW,
+    [
+        'price_id_suffix' => '_clone'
+    ]
+) ?>
+
+<div class="box-tocart" style="display: none;">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+            <div class="control">
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       min="0"
+                       value="<?= $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                       />
+            </div>
+        </div>
+        <?php endif; ?>
+         <input type="hidden" name="custom_price" value="" id="custom_price_cal">
+         <input type="hidden" name="custom_option_price" value="" id="custom_option_price_cal">
+
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<style type="text/css">
+  div#error-msg p {
+    color: red;
+}#maincontent {
+    margin-top: 0px;
+}
+.product-social-links {
+    display: none;
+}
+.product-options-wrapper { border:unset; }
+/*.product-info-main .swatch-attribute-label { display: block; }
+*/.swatch-option.text {
+    min-width: 35px;    background: #ffff; border: 1px solid #21293c;
+}
+.field.required .label {
+    margin: 5px 0;
+ min-width: 100px;
+    padding: 5px 0px; max-width: 100px; 
+}
+.field.required .label {
+    margin-right: 5px;
+}
+.field.required {
+    display: flex;
+}
+.swatch-option:not(.disabled):hover {
+    border: 1px solid #21293c;
+    color: #fff; background: #21293c;
+    outline: 1px solid #999;
+}
+.field.required .label span {
+    margin-right: 5px;
+    color: #21293c;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .005em;
+    text-transform: uppercase;
+}
+.product-info-main .swatch-attribute-label{      min-width: 90px;  }
+a#calculate {
+    background-color: #403767;
+}
+.input-text.product-custom-option {
+    background: transparent;
+    border: none;
+    padding: 2px 5px;
+    border-bottom: 1px solid #000000;
+    width:40%;
+}
+div#loading-image img {
+    padding-top: 8px;
+    text-align: center;
+    margin-left: 15px;
+    /* padding: 10px; */
+    height: 30px;
+}
+div#loading-image {
+    display: inline-block; }
+    span.price-label {
+    display: none !important;
+} 
+.stock.available {
+    display: none;
+}
+.product-info-main .product.attibute.overview, .product-info-main .product.attribute.overview {
+    margin: 15px 0;
+}
+.product-info-main .product-info-stock-sku {
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+}
+.product-options-bottom .price-box, .product-info-price .price-box {
+    padding-bottom: 0px;
+    padding-top: 5px; padding-left: 5px;
+}
+.product-info-main .product-options-bottom .box-tocart { margin:0px; }
+
+.product-info-main .fieldset > .field.qty, .product-info-main .nested.options-list>.field.qty  { width:65px; }
+.product-info-main .qty.field .control { margin-left:0px; }
+.fotorama__fullscreen-icon {
+    display: none !important;
+}
+
+.product .fotorama__stage__frame .fotorama__img {
+       top: 0 !important;
+       transform: none !important;
+       -webkit-transform: none !important;
+       position: static;
+       margin-top: auto !important;
+       border: 1px solid #999 !important;
+}
+
+.fotorama__stage { border: unset !important;}
+span.original-price-no-special-price {
+    display: none;
+}span.remove-icon {
+    display: none;
+}
+</style>
+
+<style type="text/css">
+    .field.choice.admin__field.admin__field-option.has-swatch {
+    display: block;
+    margin-left: 10px;
+}
+
+div.options-list.nested {
+    display: inline-flex;
+}
+.field .label span {
+    margin-right: 5px;
+    color: #21293c;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .005em;
+    text-transform: uppercase;
+}
+
+.field.choice .label span {
+    margin-right: 5px;
+    color: #21293c;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .005em;
+    text-transform: uppercase;
+}
+.swatch {
+    display: block;
+    width: 75px;
+    height: 75px;
+    margin-top: 5px;
+}.swatch img {
+    width: 50px;
+    height: 50px;
+}
+p.mage-error {
+    color: red;
+    font-size: 12px;
+    margin: 5px auto;
+}
+span.price-notice { display: none; }
+/*.swatch {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}*/
+
+#advancedoption .options-list.nested .cc {
+    margin-right: 10px;
+}
+
+.advanced-product-option .field  label:first-child {
+    color: #21293c;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .005em;
+    text-transform: uppercase;
+}
+.advanced-product-option .field .label span,
+.advanced-product-option .field  .control label.label {
+    color: #7b7f83;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 0 5px 5px 0;
+    /* top: 5px; */
+}
+
+.advanced-product-option .field.choice {
+    margin: 5px 0 10px 0;
+}
+
+.advanced-product-option .product-color-swatches {
+    margin: 10px 0 0 0;
+}
+
+
+.advanced-product-option .field .control {
+    margin: 5px 0 5px 0;
+}
+
+.advanced-product-option .field label.label:first-child span {
+     color: #21293c;
+     /* margin: 16px 0; */
+     /* padding-bottom: 15px; */
+     font-size: 15px;
+     font-weight: 600;
+     letter-spacing: .005em;
+     text-transform: uppercase;
+}
+
+.advanced-product-option .field select.required-entry.advanced-product-option-field {
+    width: auto;
+}
+
+.advanced-product-option .field label span.required-field, .advanced-product-option .field label.label span.required {
+    color: red;
+}
+.product-add-form .product-options-wrapper .field:not(.date) > .control {
+    width: auto;
+}
+
+
+</style>
+
+
+<script type="text/javascript">
+
+/* 
+requirejs(['jquery','underscore'], function(jQuery,_){
+   jQuery(window).load(function(){
+        jQuery( ".product-options-wrapper div" ).click(function() {
+            selpro();
+        });
+    });
+    function selpro () {
+        var selected_options = {};
+        jQuery('div.swatch-attribute').each(function(k,v){
+            var attribute_id    = jQuery(v).attr('attribute-id');
+            var option_selected = jQuery(v).attr('option-selected');
+            //console.log(attribute_id, option_selected);
+            if(!attribute_id || !option_selected){ return;}
+            selected_options[attribute_id] = option_selected;
+        });
+
+        var product_id_index = jQuery('[data-role=swatch-options]').data('mageSwatchRenderer').options.jsonConfig.index;
+        var found_ids = [];
+        jQuery.each(product_id_index, function(product_id,attributes){
+            var productIsSelected = function(attributes, selected_options){
+                return _.isEqual(attributes, selected_options);
+            }
+            if(productIsSelected(attributes, selected_options)){
+                found_ids.push(product_id);
+            } 
+        });
+        console.log(found_ids);
+    }
+});*/
+
+
+    require(["jquery",'underscore',    'mage/validation'
+],function($,_) {
+        $(document).ready(function() {
+
+         /*   jQuery('body .options-list  input').on('change', function() {   
+              $('span.price').hide();
+              console.log("abc");
+              var price_custom_option = jQuery('input[type=radio]:checked', '.options-list').attr('price');
+              var c_price = jQuery('#custom_price_cal').val();  jQuery('span.price').text('-');  jQuery('span.price').show();
+              var cc_price = (parseFloat)(c_price) + (parseFloat)(price_custom_option);
+                $('span.price').text('£'+cc_price);
+
+            });
+*/
+//$('body .options-list .field.choice:not(.has-swatch)').hide();
+            setTimeout(function(){
+               if($("body").hasClass("page-product-advanced-option")) {
+                    
+                  console.log($("body .advanced-product-option").find('.field').length+" child");
+    
+                   if($("body .advanced-product-option").find('.field').length !== 0) {
+                            $("#Customize").show();
+                    }  
+                }  
+           }, 5000);
+             $('body .options-list  input').on('change', function() {   
+
+
+                   var txt =  jQuery( this ).parent().find( ".label span" ).text(); console.log(txt);
+                                   var txt1 =  jQuery( this ).parent().find( ".label " ).text(); console.log(txt1);
+              $('span.price').hide();
+              console.log("abc1");
+              var pp = parseFloat(0); // var abc = 0;
+
+            jQuery("body #product-options-wrapper input[type=radio]:checked").each(function() {
+           
+             if(this.value == "NaN"){ var abc = 0; }
+             if(jQuery(this).attr('price') !== typeof undefined && jQuery(this).attr('price') !== false ) 
+             {
+               var abc = parseFloat(jQuery(this).attr('price'));
+             } else{ var abc = 0;   }  
+              if(!$.isNumeric(abc)){ abc = 0; } console.log(abc+"abcc-price");
+               pp = pp + abc;  console.log(pp+"pp-price");
+               $('body #custom_option_price_cal').val(pp);
+            }); 
+
+               
+
+              var price_custom_option = $('body #custom_option_price_cal').val();
+              console.log(price_custom_option);
+              var c_price = $('body #custom_price_cal').val();
+                         if(!$.isNumeric(c_price)){ c_price = 0; }
+
+                $('span.price').text('-');  $('span.price').show();
+              var cc_price = (parseFloat)(c_price) + (parseFloat)(price_custom_option);
+                $('span.price').text('£'+cc_price);
+
+            });
+              jQuery(' #Customize').on('click', function() { 
+                        $("#advancedoption").toggle();
+                });
+
+            $('body #product-options-wrapper .field.required  input').on('change', function() {   
+                 $('.box-tocart').hide();  
+            });
+
+
+                  $(document).on('click','#calculate',function() {
+
+                       var form = '#product_addtocart_form';
+            if ($(form).validation() && $(form).validation('isValid')) {
+             console.log("validation true");   //true 
+            } else { console.log("validation false");
+                return false;
+            }
+                    $('#loading-image').show();
+
+
+                     var selected_options = {};
+        jQuery('div.swatch-attribute').each(function(k,v){
+            var attribute_id    = jQuery(v).attr('attribute-id');
+            var option_selected = jQuery(v).attr('option-selected');
+            //console.log(attribute_id, option_selected);
+            if(!attribute_id || !option_selected){ 
+              return; } 
+              // if(!$.isNumeric(option_selected)){ jQuery( this ).append("<p class='error'> This is required field </p>");  }
+            selected_options[attribute_id] = option_selected;
+        });
+
+        var product_id_index = jQuery('[data-role=swatch-options]').data('mageSwatchRenderer').options.jsonConfig.index;
+        var found_ids = []; var selected_product_id;
+        jQuery.each(product_id_index, function(product_id,attributes){
+            var productIsSelected = function(attributes, selected_options){
+                return _.isEqual(attributes, selected_options);
+            }
+            if(productIsSelected(attributes, selected_options)){  console.log(product_id);
+               // found_ids.push(product_id);
+                 selected_product_id = product_id; console.log(selected_product_id);
+            } 
+        });
+        var length = 0;          var width = 0; var thick = 0;
+
+            var isvalid =  false;
+           jQuery('div.swatch-attribute').each(function(k,v){
+              if($(this).find('.swatch-attribute-selected-option').text() == "")
+              {
+                isvalid = false; jQuery( this ).append('<p class="mage-error">This is required field</p>');
+                setTimeout(function() {     jQuery('.mage-error').remove();   }, 2000);
+              }else {  isvalid = true; }
+            });
+         jQuery( "#product-options-wrapper .field.required" ).each(function() {
+                       var txt =  jQuery( this ).find( ".label" ).text(); console.log(txt);
+                       if(jQuery.trim(txt) == "length" || jQuery.trim(txt) == "Length" || jQuery.trim(txt) == "LENGTH" )
+                       {
+                          length = jQuery( this ).find(".input-text").val(); console.log(length);
+                          if(!$.isNumeric(length)){  isvalid = false; 
+                            jQuery( this ).find('.control ').append('<p class="mage-error">This is required field</p>');
+                          setTimeout(function() {  jQuery('.mage-error').remove();   }, 2000);
+ }else {  isvalid = true; }
+                       }
+
+                       if(jQuery.trim(txt) == "width" || jQuery.trim(txt) == "Width" || jQuery.trim(txt) == "WIDTH" )
+                       {
+                          width = jQuery( this ).find(".input-text").val(); console.log(width);
+                       }/*if(jQuery.trim(txt) == "depth" || jQuery.trim(txt) == "Depth" )
+                       {
+                         var depth = jQuery( this ).find(".input-text").val(); console.log(val);
+                       }*/
+          });
+
+                    var thick1 =$(".swatch-attribute.thickness  div ").attr('aria-activedescendant');
+                    var thick = $("#"+thick1).html(); // $("#attribute159").val();
+       // var length =  $("#options_5_text").val();//  var width =  $("#options_6_text").val();   // var selected_product_id =  $("input[name='selected_configurable_option']").val();
+            var customurl = "<?php echo $this->getUrl().'calculate'?>";
+             $("#error-msg").hide();
+             if(isvalid == true)
+             {
+            $.ajax({
+                url: customurl,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    length: length,
+                    width: width,
+                    thick: thick, selected_product_id: selected_product_id,
+                    productid: <?php echo $productid; ?>
+                },
+                 success: function(response) {
+                                  console.log(' rr '+response); 
+                if(response.status)
+                {
+                      var custom_p = response.price;
+                 // state = response.responseJSON.state;         
+                  console.log(' price '+custom_p); 
+                  $('#custom_price_cal').val(custom_p);
+                 var pp = parseFloat(0); // var abc = 0;
+
+            jQuery("body #product-options-wrapper input[type=radio]:checked").each(function() {
+                              
+
+             if(this.value == "NaN"){ var abc = 0; }
+             if(jQuery(this).attr('price') !== typeof undefined && jQuery(this).attr('price') !== false ) 
+             {
+               var abc = parseFloat(jQuery(this).attr('price'));
+             } else{ var abc = 0;   }  
+              if(!$.isNumeric(abc)){ abc = 0; } console.log(abc+"abcc-price");
+               pp = pp + abc;  console.log(pp+"pp-price");
+               $('body #custom_option_price_cal').val(pp);
+            }); 
+              var price_custom_option = $('body #custom_option_price_cal').val();
+              console.log(price_custom_option);
+             if($.isNumeric(price_custom_option))
+              {
+                  var custom_p1 = parseFloat(custom_p) +  parseFloat(price_custom_option);             
+                  $('span.price').text('£'+custom_p1);
+                  $('.box-tocart').show();  
+              } else {   $('span.price').text('£'+custom_p);
+                  $('.box-tocart').show();    }        
+
+                  }else {                   console.log(' msg '+response.msg); 
+                                //setTimeout(function() {
+                            $("#error-msg").show().html("<p>"+response.msg+"</p>"); 
+                            $('#error-msg').hide().delay(2000).fadeIn(400);      // }, 2000 );   
+                   }          
+                },
+            complete: function(response) {   
+              $('#loading-image').hide();
+
+                },           
+
+          }); }
+
+
+
+            
+             });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+    require(['jquery','Magento_Catalog/js/price-utils','jquery/ui'], function ($,priceUtils) 
+    {
+     $(document).ready(function(){
+
+        $('body .options-list  input').on('change', function(){ 
+
+        var finalPrice='200.55';
+         var c_price = jQuery('#custom_price_cal').val();
+           if(!$.isNumeric(c_price)){ c_price = 0; }
+                       var pp = parseFloat(0); // var abc = 0;
+
+            jQuery("body #product-options-wrapper input[type=radio]:checked").each(function() {
+           
+             if(this.value == "NaN"){ var abc = 0; }
+             if(jQuery(this).attr('price') !== typeof undefined && jQuery(this).attr('price') !== false ) 
+             {
+               var abc = parseFloat(jQuery(this).attr('price'));
+             } else{ var abc = 0;   }  
+               if(!$.isNumeric(abc)){ abc = 0; } console.log(abc+"abcc-price");
+               pp = pp + abc;  console.log(pp+"pp-price");
+               $('body #custom_option_price_cal').val(pp);
+            }); 
+              var price_custom_option = $('body #custom_option_price_cal').val();
+              console.log(price_custom_option);
+         // var price_custom_option = $('input[type=radio]:checked', '.options-list').attr('price');
+          //if(price_custom_option.length == 0) { price_custom_option = 0; }
+              console.log(price_custom_option);
+         finalPrice = c_price + price_custom_option;
+         
+                   //   finalPrice = finalPrice + parseFloat(price_custom_option);
+        finalPrice=(pricePerText*textObjects)+(pricePerImage*imageObjects);
+
+        formatedPrice = priceUtils.formatPrice(parseFloat(finalPrice));
+        jQuery('span.price-final_price > span.price-wrapper > span.price').text(formatedPrice);
+ 
+        });
+
+
+    });
+
+    });
+    </script>

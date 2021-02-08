@@ -1,0 +1,200 @@
+<?php
+
+
+    /**
+     * Webkul Hello CustomPrice Observer
+     *
+     * @category    Webkul
+     * @package     Webkul_Hello
+     * @author      Webkul Software Private Limited
+     *
+     */
+    namespace Stw\Pricecalculator\Controller\Index;
+ 
+    use Magento\Framework\App\RequestInterface;
+     use Magento\Framework\Controller\ResultFactory;
+
+
+ 
+class Index extends \Magento\Framework\App\Action\Action
+{
+     /** @var  \Magento\Framework\View\Result\Page */
+    protected $resultPageFactory;
+
+
+    /**     * @param \Magento\Framework\App\Action\Context $context      */
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\View\Result\PageFactory $resultPageFactory,        \Magento\Catalog\Model\ProductFactory $productFactory) {
+        $this->resultPageFactory = $resultPageFactory;
+                $this->productFactory = $productFactory;
+
+        parent::__construct($context);
+    }
+
+        /* Get Label by option id */
+    public function getOptionLabelByValue($attributeCode,$optionId)
+    {
+        $_product = $this->productFactory->create();
+        $isAttributeExist = $_product->getResource()->getAttribute($attributeCode); 
+        $optionText = '';
+        if ($isAttributeExist && $isAttributeExist->usesSource()) {
+            $optionText = $isAttributeExist->getSource()->getOptionText($optionId);
+        }
+        return $optionText;
+    }
+    public function execute()
+    {
+
+     //// $helper = $this->helper('Solwin\Cpanel\Helper\Data');
+     // $showsocial = $helper->getShowsocialicons();
+           $_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+          $resultPage = $this->resultPageFactory->create();
+          $post = $this->getRequest()->getPostValue();
+
+    //  echo "<pre>";
+     // print_r($post);
+  // mm to feet d(ft) = d(mm) / 304.8
+
+
+         //   $length = $post['length']; echo  $ft_length = $length / 304.8; echo "  length";
+         //   $width = $post['width']; echo $ft_width = $width / 304.8; echo "  width";
+          //  $thick = $post['thick'];
+          $productid = $post['productid'];
+          $selected_product_id = $post['selected_product_id'];
+          
+      //Calculating sheet weight on length X width X Thick X 8.068 3/4
+
+      //$sheet_weight = $ft_length * $ft_width * $thick * 3/4;
+      //echo $sheet_weight;
+
+    ////  $final_weight = 1 * $sheet_weight / 1000;
+    //  echo  "final".$final_weight;
+
+       $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+      $product = $objectManager->create('Magento\Catalog\Model\Product')->load($productid);
+      $product_weight = $product->getData('weight');
+      $product_price = $product->getData('default_price');
+
+      $sproduct = $objectManager->create('Magento\Catalog\Model\Product')->load($selected_product_id);
+      $product_weight = $sproduct->getData('weight');
+      $product_price = $sproduct->getData('default_price');
+
+
+
+      $type =  $product->getResource()->getAttribute('material_type')->getFrontend()->getValue($product); 
+      $metal =  $product->getResource()->getAttribute('metal')->getFrontend()->getValue($product);
+      $d_length =  $product->getResource()->getAttribute('length')->getFrontend()->getValue($sproduct);
+      $d_width =  $product->getResource()->getAttribute('width')->getFrontend()->getValue($sproduct);
+
+      if($type == "Sheet" && $metal == "Aluminium" )
+      {
+           $length = $post['length'];   $mtr_length = $length / 1000; // echo "  length";
+          $width = $post['width'];  $mtr_width = $width / 1000; //echo "  width";
+          $thick = $post['thick'];
+          if( $d_length < $length &&  $d_width < $width)
+         {
+              $final_price = $product_price;
+         }else{
+         if( $d_length == $length &&  $d_width == $width)
+         {
+              $final_price = $product_price;
+         }else {
+
+         
+        $alu_sheet_form_value = $_objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('sleekaccordian/f_sheet/alu_sheet');
+               
+                $sheet_weight = $mtr_length * $mtr_width * (float)$thick * (float)$alu_sheet_form_value;
+
+                $final_price = $sheet_weight/$product_weight * (1.5*$product_price);
+                                          //echo  "final price".$final_price;
+                $simple_product = $objectManager->create('Magento\Catalog\Model\Product')->load($selected_product_id);
+                        //  $final_price = $sheet_weight/$product_weight * (1.5*$product_price);
+
+
+                 }
+             }
+       }
+
+      if($type == "Sheet" && $metal == "Stainless Steel" )
+      {
+           $length = $post['length'];   $mtr_length = $length / 1000; // echo "  length";
+          $width = $post['width'];  $mtr_width = $width / 1000; //echo "  width";
+          $thick = $post['thick'];
+           if( ($length >= 100 && $length <= $d_length) && ($width >= 100 && $width <= $d_width))
+            {
+             
+
+             
+         if( $d_length == $length &&  $d_width == $width)
+         {
+              $final_price = $product_price;
+         }else {
+
+         
+        $steel_sheet_form_value = $_objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('sleekaccordian/f_sheet/steel_sheet'); 
+
+        $price_sheet_form_value = $_objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('sleekaccordian/f_sheet/p_sheet');
+               
+                $sheet_weight = $mtr_length * $mtr_width * (float)$thick * (float)$steel_sheet_form_value;
+
+                $final_price = $sheet_weight/$product_weight * (1.5*$product_price);
+                                          //echo  "final price".$final_price;
+                $simple_product = $objectManager->create('Magento\Catalog\Model\Product')->load($selected_product_id);
+             ;
+      }
+             $final_price1 = number_format((float)$final_price, 2, '.', '');              //  echo  "final price".$final_price;
+                           $data = array(  'price' => $final_price1,
+                  'status' => true);
+        } else {  $msg = "Length should be between 100 - ".$d_length." Width should be between 100 - " .$d_width;            //  echo  "final price".$final_price;
+                           $data = array(  'msg' => $msg,
+                  'status' => false);}
+
+     }
+
+
+      if($type == "Angle" && $metal == "Stainless Steel" )
+      {
+           $length = $post['length'];   $mtr_length = $length / 1000;  //echo "  length".$mtr_length;
+
+                 $d_thick =  $product->getResource()->getAttribute('thick')->getFrontend()->getValue($sproduct);  //echo  "d_thick  price".$d_thick;  echo  "d_width price".$d_width;
+
+           if( ($length >= 100 && $length <= $d_length))
+            {
+             
+
+             
+              if( $d_length == $length)
+              {
+                     $final_price = $product_price;
+               }else {
+
+         
+                $angle_sheet_form_value = $_objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('sleekaccordian/f_angle/f_angle'); 
+
+                $price_sheet_form_value = $_objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('sleekaccordian/f_sheet/p_angle');
+               
+                $calulte = ($d_width * 2) -  $d_thick;
+                $angle_weight =  $calulte *  $d_thick * $mtr_length * $angle_sheet_form_value; //(side width ×2 - thickness) ×thickness ×length(m) ×0.00800
+                                          echo  "angle weight ".$angle_weight;
+
+                $final_price = $angle_weight/$product_weight * ($price_sheet_form_value * $product_price); //1.12
+                $simple_product = $objectManager->create('Magento\Catalog\Model\Product')->load($selected_product_id);
+                      
+              }
+             $final_price1 = number_format((float)$final_price, 2, '.', '');              //  echo  "final price".$final_price;
+                           $data = array(  'price' => $final_price1,
+                  'status' => true);
+             } else {  $msg = "Length should be between 100 - ".$d_length;            //  echo  "final price".$final_price;
+                           $data = array(  'msg' => $msg,
+                  'status' => false); }
+
+     }
+      
+      $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+      $resultJson->setData($data);
+      return $resultJson;
+
+       exit;
+
+
+    } 
+}

@@ -1,0 +1,72 @@
+<?php
+/** @var \Magenest\AdvancedProductOption\Block\Product\View\Option $block */
+$productId = $block->getProductId();
+/*$ranges = $block->getSpecialPriceDays();*/
+//$ranges =[];
+//$specialPrice = $block->getSpecialPrice();
+//$delta = floatval( $block->getDeltaPrice());
+?>
+<style>
+    .tooltip-icon{
+        background-image:url('<?php echo $block->getViewFileUrl('Magenest_AdvancedProductOption/img/tooltip.png') ?>');
+    }
+</style>
+
+<div class="fieldset"   id="advancedoption" data-bind="scope:'advancedoption'">
+    <!-- ko template:getTemplate() --> <!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#advancedoption": {
+                "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout(); ?>
+            }
+        }
+</script>
+</div>
+
+
+<script type="text/javascript">
+    /*
+require([
+    "jquery",
+    "jquery/ui"
+], function($){           
+
+ $(document).ready(function() {
+
+       $(' body .shape .product-color-swatches').click(function () {
+                                    // jQuery(this).closest('').toggleClass('checked'); closest('.advanced-product-row-field')
+                                  if($(this).parent().find('input[type="checkbox"]').length > 0)
+                                  {
+                                      //  $(this).css('border','1px solid red');
+                                      //$(this).parent().find('img').css('border', 'unset'); //add a class to be more specific
+                                  // $(this).parent().find('img').css('border', 'solid 1px orange');
+                                       $(this).parent().find('input[type="checkbox"]').click();
+                                  }
+                                  if($(this).parent().find('input[type="radio"]').length > 0)
+                                  {
+                                       $(this).parent().find('input[type="radio"]').click();
+                                  }
+                                    // jQuery(this).parent().find('input[type="radio"]').click();
+
+                              });
+
+                          
+
+                                $(" body .advanced-product-option input[type=radio]").on('change', function(){
+                                   $(' body .options-list.nested img').css('border', 'none'); //add a class to be more specific
+                                   $(this).parent().find('img').css('border', 'solid 1px orange'); 
+                                });
+
+
+                                $(" body .options-list.nested .cc .product-color-swatches").on('click', function(){ console.log("1234");
+                                  if($(this).parent().find('input[type=checkbox]:checked').length > 0)
+                                {
+                                 $(this).find('.swatch-illusion img').css('border', 'none'); //add a class to be more specific
+                                }else {
+                                   $(this).find('.swatch-illusion img').css('border', 'solid 1px orange');   }
+                                });
+
+         });
+    });
+*/
+</script>

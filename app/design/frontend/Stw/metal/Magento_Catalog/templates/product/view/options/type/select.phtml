@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select */ ?>
+<?php
+$_option = $block->getOption();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+$_option_id = $_option->getId();
+ $_product = $block->getProduct();
+$customOption = $_product->getData('EvilCustomOptions'); 
+/*
+echo "1234435"; echo " id ". $_product->getId();
+
+             
+            $values = $_option->getValues();  print_r($values);
+
+            $i = 0;
+            if (!empty($values)) {                   
+
+            foreach ($values as $value) {  print_r($value->getData()); } } */
+
+ //print_r($_option->getData()); 
+              //  $optionData = $_option->getValues(); print_r($optionData);
+
+
+?>
+<div class="field<?= /* @noEscape */ $class ?>">
+    <label class="label" for="select_<?= $block->escapeHtmlAttr($_option->getId()) ?>">
+        <span><?= $block->escapeHtml($_option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <?= $block->getValuesHtml() ?>
+        <?php if ($_option->getIsRequire()) :?>
+            <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_RADIO || $_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_CHECKBOX) :?>
+                <span id="options-<?= $block->escapeHtmlAttr($_option->getId()) ?>-container"></span>
+            <?php endif; ?>
+        <?php endif;?>
+    </div>
+</div>

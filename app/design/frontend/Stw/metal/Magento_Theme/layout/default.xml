@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Template" name="cpanel.header.notification" as="cpanel_header_notification" before="-" template="Magento_Theme::html/header/notification.phtml" ></block>
+        </referenceContainer>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">148</argument>
+                <argument name="logo_img_height" xsi:type="number">43</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="footer">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="switch/stores.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="footer-top">
+            <block class="Magento\Framework\View\Element\Template" name="cpanel.footer" as="cpanel_footer" after="form.subscribe" before="-" template="Magento_Theme::html/footer/footer.phtml" >
+                <block class="Magento\Framework\View\Element\Html\Links" name="footer_links">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">footer links</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Newsletter\Block\Subscribe" name="footer.newsletter" template="subscribe.phtml"/>
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="footer_logo">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">189</argument>
+                        <argument name="logo_img_height" xsi:type="number">64</argument>
+                    </arguments>
+                </block>
+            </block>
+     </referenceContainer>
+
+      <!--   <referenceContainer name="footer-top">  
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" after="cpanel.footer" template="html/copyright.phtml"/> 
+            <block class="Magento\Framework\View\Element\Template" name="report.bugs" template="Magento_Theme::html/bugreport.phtml" />
+        </referenceContainer> -->
+      <!--   <referenceContainer name="footer-top">
+             <block class="Magento\Framework\View\Element\Template" name="stw_footers" before="main.content" template="Magento_Theme::html/footbottom.phtml">
+                    </block>
+            </referenceContainer> -->
+       
+          <referenceContainer name="header-wrapper">
+             <container name="customblock" htmlTag="div" htmlClass="custom-block" >
+                <block class="Magento\Theme\Block\Html\Topmenu" name="custom.text" template="Magento_Theme::html/customtext.phtml" ttl="3600" before="-"/>
+            </container>
+             <container name="searcharea" htmlTag="div" htmlClass="search-area" >
+                    <block class="Magento\Theme\Block\Html\Topmenu" name="search.box" template="Magento_Theme::html/search.phtml" ttl="3600" before="-"/>
+            </container>
+         </referenceContainer>
+
+
+        <!--  you can easly add New links with following code -->
+        <referenceBlock name="header.links">
+               <!-- Contact us Link -->
+            <block class="Magento\Framework\View\Element\Html\Link" name="contactus.link" before="register-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="false">Contact Us</argument>
+                    <argument name="path" xsi:type="string" translate="false">contact-us</argument>
+                </arguments>
+            </block>
+            <!-- CMS Page Link Link -->
+            <block class="Magento\Framework\View\Element\Html\Link" name="login.link" after="contactus.link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="false">LOG IN</argument>
+                    <argument name="path" xsi:type="string" translate="false">customer/account/login</argument>
+                </arguments>
+            </block>
+
+             <!--  you can easly Remove  links with following code -->
+   
+            <referenceBlock name="authorization-link" remove="true" />      <!--for Sign In Link  -->
+
+        </referenceBlock>
+          <move element="top.search" destination="searcharea" after="search.box" />
+
+         <move element="minicart" destination="header-wrapper" after="logo" />
+         <move element="searcharea" destination="header-wrapper" after="minicart" />
+         <move element="customblock" destination="header-wrapper" after="searcharea" />
+         <move element="navigation.sections" destination="header-wrapper" after="-" />
+      
+        <referenceBlock name="report.bugs" remove="true"/>
+       <referenceBlock name="footer" remove="true"/>
+            <referenceBlock name="authorization-link-login" remove="true" />      <!--for Sign In Link  -->
+
+     
+
+      <!--   <move element="copyright" destination="before.body.end"/>-->
+    </body>
+</page>

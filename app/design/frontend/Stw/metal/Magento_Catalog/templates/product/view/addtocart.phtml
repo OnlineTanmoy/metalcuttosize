@@ -1,0 +1,1632 @@
+ <?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+  <!-- <div id="loader"  class="center">
+        <img src="<?php //echo $block->getViewFileUrl('images/ajax-loader.gif') ?>" /> 
+    </div> -->
+<?php  $_product = $block->getProduct();
+$productid = $block->getProduct()->getId();
+      $type =  $_product->getResource()->getAttribute('material_type')->getFrontend()->getValue($_product);
+//echo " type - > ".  $type;
+ ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :
+ $server = $this->getRequest()->getServer();
+
+      $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+      $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+      $connection = $resource->getConnection();
+      $tableName = $resource->getTableName('magenest_apo_product'); //gives table name with prefix
+      //Select Data from table
+      $sql = "Select * FROM " . $tableName." where product_id = ".$productid;
+      $result = $connection->fetchAll($sql); // gives associated array, table fields as key in array.
+
+//Identifying if user is on mobile browser or not
+if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$_SERVER['HTTP_USER_AGENT'])||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($_SERVER['HTTP_USER_AGENT'],0,4)) ||  strpos($server['HTTP_USER_AGENT'], 'tablet') !== false || strpos($server['HTTP_USER_AGENT'], 'iPad') !== false || empty($result)) {
+
+  ?>
+
+<div class="">
+
+
+    <div id="error-msg" style="display: none"> </div>
+    <a href="javascript:void(0);" class="btn button btn-primary " id="calculate">Calculate price </a>
+    <div id="loading-image" style="display: none;">
+        <img src="<?php echo $block->getViewFileUrl('images/ajax-loader.gif') ?>" />
+    </div>
+</div>
+<?php
+}
+?>
+<?php $_product = $block->getProduct() ?>
+<?= $block->getProductPriceHtml(
+    $_product,
+    \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+    \Magento\Framework\Pricing\Render::ZONE_ITEM_VIEW,
+    [
+        'price_id_suffix' => '_clone'
+    ]
+) ?>
+<div class="box-tocart" style="display: none;">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+            <div class="control">
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       min="0"
+                       value="<?= $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>" />
+            </div>
+        </div>
+        <?php endif; ?>
+        <input type="hidden" name="custom_price" value="" id="custom_price_cal">
+        <input type="hidden" name="custom_option_price" value="" id="custom_option_price_cal">
+        <input type="hidden" name="advanced_custom_option_price" value="" id="advanced_custom_option_price_cal">
+
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+    "#product_addtocart_form": {
+    "Magento_Catalog/js/validate-product": {}
+    }
+    }
+</script> <?php  ?>
+<style type="text/css">
+span.color_swatch_box img {
+    display: none !important;
+}
+
+        .fotorama__stage {
+            margin-bottom: -61px;
+        }
+
+        div#error-msg p {
+            color: red;
+        }
+
+        #maincontent {
+            margin-top: 0px;
+        }
+
+        .product-social-links {
+            display: none;
+        }
+
+        .product-options-wrapper {
+            border: unset;
+        }
+        /*.product-info-main .swatch-attribute-label { display: block; }
+    */ .swatch-option.text {
+            min-width: 35px;
+            background: #ffff;
+            border: 1px solid #21293c;
+        }
+
+        .field.required .label {
+            margin: 5px 0;
+            min-width: 100px;
+            padding: 5px 0px;
+            max-width: 100px;
+        }
+
+        .field.required .label {
+            margin-right: 5px;
+        }
+
+        .field.required {
+            display: flex;
+        }
+
+        .swatch-option:not(.disabled):hover {
+            border: 1px solid #21293c;
+            color: #fff;
+            background: #21293c;
+            outline: 1px solid #999;
+        }
+
+        .field.required .label span {
+            margin-right: 5px;
+            color: #21293c;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .005em;
+            text-transform: uppercase;
+        }
+
+        .product-info-main .swatch-attribute-label {
+            min-width: 90px;
+        }
+
+        a#calculate {
+            background-color: #403767;
+        }
+
+        .input-text.product-custom-option {
+            background: transparent;
+            border: none;
+            padding: 2px 5px;
+            border-bottom: 1px solid #000000;
+            width: 40%;
+        }
+
+        div#loading-image img {
+            padding-top: 8px;
+            text-align: center;
+            margin-left: 15px;
+            /* padding: 10px; */
+            height: 30px;
+        }
+
+        div#loading-image {
+            display: inline-block;
+        }
+
+        span.price-label {
+            display: none !important;
+        }
+
+        .stock.available {
+            display: none;
+        }
+
+        .product-info-main .product.attibute.overview, .product-info-main .product.attribute.overview {
+            margin: 15px 0;
+        }
+
+        .product-info-main .product-info-stock-sku {
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding: 0px;
+            margin: 0px;
+            text-align: left;
+        }
+
+        .product-options-bottom .price-box, .product-info-price .price-box {
+            padding-bottom: 0px;
+            padding-top: 5px;
+            padding-left: 5px;
+        }
+
+        .product-info-main .product-options-bottom .box-tocart {
+            margin: 0px;
+        }
+
+        .product-info-main .fieldset > .field.qty, .product-info-main .nested.options-list > .field.qty {
+            width: 65px;
+        }
+
+        .product-info-main .qty.field .control {
+            margin-left: 0px;
+        }
+
+        .fotorama__fullscreen-icon {
+            display: none !important;
+        }
+
+        .product .fotorama__stage__frame .fotorama__img {
+            top: 0 !important;
+            transform: none !important;
+            -webkit-transform: none !important;
+            position: static;
+            margin-top: auto !important;
+            border: 1px solid #999 !important;
+        }
+
+        .fotorama__stage {
+            border: unset !important;
+        }
+		
+.field.textbox {
+    display: inline-grid;
+}
+
+.width_a, .length_b, .cutoutsize, .dfec, .holesize, .dfeh{
+    width: 48%;
+    display: flex;
+}
+.length_b , .dfec, .dfeh {
+    margin-left: 7px;
+}
+
+        span.original-price-no-special-price {
+            display: none;
+        }
+
+        span.remove-icon {
+            display: none;
+        }
+		.field.cts .tooltip .tooltiptext {
+/*			visibility: visible;
+*/			width: 250px;
+/*			background-color: inherit;
+*/			font-size: 12px !important;
+			color: #fff !important;
+			text-align: left;
+			border-radius: 0;
+			padding: 5px;
+			position: absolute;
+			z-index: 1;
+			top: 0;
+			left: 105%;
+		}
+		.field { position:realtive; }
+		.field .tooltip .tooltiptext {
+/*			visibility: visible;
+*/			width: 250px;
+/*			background-color: inherit;
+*/			font-size: 12px !important;
+color: #ccc !important;			text-align: left;
+			border-radius: 0;
+			padding: 5px;
+			position: absolute;
+			z-index: 1;
+/* 			top: 0;
+ */			left: 105%;
+		}
+.textbox span.tooltip-icon.tooltip {
+       display: inline-block;
+    margin: 0 !important;
+    top: 5px !important;
+}
+.field.textbox.pts  .label  {
+    margin-bottom: 0px;
+}
+
+.field.textbox.pts .label span {
+    margin-right: 0px;
+}
+
+.cutouts.square {
+    width: 150px;
+    height: 150px;
+    position: relative;
+border:1px solid grey;
+}
+
+.cutouts.square .cc:first-child {
+    position: absolute;
+      width: 14%;
+    top: 0;
+    left:7px;
+}
+.cutouts.square .cc:nth-child(2) {
+    position: absolute;
+      width: 14%;
+    top: 0;
+    right: 0;
+}
+.cutouts.square .cc:nth-child(3) {
+    position: absolute;
+      width: 14%;
+    bottom: 7px;
+    left: 7px;
+}
+.cutouts.square .cc:nth-child(4) {
+    position: absolute;
+      width: 14%;
+    bottom: 7px;
+    right: 0;
+}
+.cutouts.square .cc:nth-child(5) {
+    position: absolute;
+      width: 14%;
+    top: 55px;
+    left: 65px;
+   
+}
+
+.holes.square {
+    width: 150px;
+    height: 150px;
+    position: relative;
+border:1px solid grey;
+}
+
+.holes.square .cc:first-child {
+    position: absolute;
+  width: 14%;
+    top: 0;
+    left:7px;
+}
+.holes.square .cc:nth-child(2) {
+    position: absolute;
+  width: 14%;
+    top: 0;
+    right: 0;
+}
+.holes.square .cc:nth-child(3) {
+    position: absolute;
+  width: 14%;
+    bottom: 7px;
+    left: 7px;
+}
+.holes.square .cc:nth-child(4) {
+    position: absolute;
+  width: 14%;
+    bottom: 7px;
+    right: 0;
+}
+.holes.square .cc:nth-child(5) {
+    position: absolute;
+  width: 14%;
+    top: 55px;
+    left: 65px;
+   
+}
+
+.cutouts.rectangle {
+       width: 170px;
+    height: 110px;
+    position: relative;
+    border: 1px solid grey;
+}
+
+.cutouts.rectangle .cc:first-child {
+    position: absolute;
+width: 14%;    top: 0;
+    left:7px;
+}
+.cutouts.rectangle .cc:nth-child(2) {
+    position: absolute;
+width: 14%;    top: 0;
+    right: 0;
+}
+.cutouts.rectangle .cc:nth-child(3) {
+    position: absolute;
+width: 14%;    bottom: 7px;
+    left: 7px;
+}
+.cutouts.rectangle .cc:nth-child(4) {
+    position: absolute;
+width: 14%;    bottom: 7px;
+    right: 0;
+}
+
+.cutouts.rectangle .cc:nth-child(5) {
+position: absolute;
+    width: 14%;
+    top: 35px;
+    left: 71px;
+}
+
+
+.holes.rectangle {
+      width: 170px;
+    height: 110px;
+    position: relative;
+    border: 1px solid grey;
+}
+
+.holes.rectangle .cc:first-child {
+    position: absolute;
+   width: 14%;
+    top: 0;
+    left:7px;
+}
+.holes.rectangle .cc:nth-child(2) {
+    position: absolute;
+   width: 14%;
+    top: 0;
+    right: 0;
+}
+.holes.rectangle .cc:nth-child(3) {
+    position: absolute;
+   width: 14%;
+    bottom: 7px;
+    left: 7px;
+}
+.holes.rectangle .cc:nth-child(4) {
+    position: absolute;
+   width: 14%;
+    bottom: 7px;
+    right: 0;
+}
+.holes.rectangle .cc:nth-child(5) {
+    position: absolute;
+   width: 14%;
+    top: 35px;
+    left: 71px;
+}
+
+.triangle {
+   background-image: url("https://m2.metalcuttosize.co.uk/pub/media/theme/TRIANGLE1.png");
+   position:relative;
+   width:150px;
+   height: 150px;
+   background-repeat: no-repeat;
+   /* background: white; */
+   background-size: cover;
+}
+
+.holes.triangle .cc:first-child {
+    position: absolute;
+       width: 14%;
+    left: 29px;
+    bottom: 25px;
+}
+.holes.triangle .cc:nth-child(2) {
+    position: absolute;
+   width: 14%;
+    right: 22px;
+    bottom: 25px;
+}
+.holes.triangle .cc:nth-child(3) {
+    position: absolute;
+      width: 14%;
+    left: 65px;
+    top: 68px;
+}
+.holes.triangle .cc:nth-child(4) {
+    position: absolute;
+       width: 14%;
+    left: 65px;
+    top: 29px;
+}
+.circle {
+   position:relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border:1px solid ;
+}
+
+
+.holes.circle .cc:first-child {
+    position: absolute;
+    width: 20%;
+    left: 5px;
+    bottom:55px;
+}
+.holes.circle .cc:nth-child(2) {
+    position: absolute;
+     width: 20%;     right: -5px;
+    bottom: 56px;
+   /*  right: 0px;
+    bottom:55px; */
+}
+.holes.circle .cc:nth-child(3) {
+    position: absolute;
+    width: 20%;
+    left: 60px;
+    top:0px;
+}
+.holes.circle .cc:nth-child(4) {
+    position: absolute;
+    width: 20%;
+    left: 60px;
+    bottom:7px;
+}
+.holes.circle .cc:nth-child(5) {
+    position: absolute;
+    width: 20%;
+    left: 60px;
+    bottom:55px;
+}
+</style>
+
+<style type="text/css">
+        .field.choice.admin__field.admin__field-option.has-swatch {
+            display: block;
+            margin-left: 10px;
+        }
+
+        div.options-list.nested {
+            display: inline-flex;
+        }
+
+        .field .label span {
+            margin-right: 5px;
+            color: #21293c;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .005em;
+            text-transform: uppercase;
+        }
+
+        .field.choice .label span {
+            margin-right: 5px;
+            color: #21293c;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: .005em;
+            text-transform: uppercase;
+        }
+
+        .swatch {
+            display: block;
+            width: 75px;
+            height: 75px;
+            margin-top: 5px;
+        }
+
+            .swatch img {
+                width: 50px;
+                height: 50px;
+            }
+
+        p.mage-error {
+            color: red;
+            font-size: 12px;
+            margin: 5px auto;
+            text-align: left;
+        }
+
+        span.price-notice {
+            display: none;
+        }
+        /*.swatch {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+    }*/
+
+        #advancedoption .options-list.nested .cc {
+            margin-right: 10px;
+        }
+
+        .advanced-product-option .field label:first-child {
+            color: #21293c;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .005em;
+            text-transform: uppercase;
+        }
+
+        .advanced-product-option .field .label span,
+        .advanced-product-option .field .control label.label {
+            color: #7b7f83;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 0 5px 5px 0;
+             top: -3px; 
+        }
+
+        .advanced-product-option .field.choice {
+            margin: 5px 0 10px 0;
+        }
+
+        .advanced-product-option .product-color-swatches {
+            margin: 10px 0 0 0;
+        }
+
+
+        .advanced-product-option .field .control {
+            margin: 5px 0 5px 0;
+        }
+
+        .advanced-product-option .field label.label:first-child span {
+            color: #21293c;
+            /* margin: 16px 0; */
+            /* padding-bottom: 15px; */
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .005em;
+            text-transform: uppercase;
+        }
+		.advanced-product-option .field.textbox label.label:first-child span
+		{
+			    font-size: 10px;    font-weight: 600;
+		}
+
+        .advanced-product-option .field select.required-entry.advanced-product-option-field {
+            width: auto;
+        }
+
+        .advanced-product-option .field label span.required-field, .advanced-product-option .field label.label span.required {
+            color: red !important;
+        }
+
+        span.price {
+            display: none;
+        }
+
+        .advanced-product-option .field select.advanced-product-option-field {
+            width: auto;
+            margin: 10px 0;
+        }
+
+        .advanced-product-option .field input.input-text {
+            width: auto;
+        }
+
+        .advanced-product-option > .field {
+            margin-top: 21px;
+        }
+
+        .advanced-product-option input[type="checkbox"] {
+            margin: 4px;
+            position: relative;
+            top: 0px;
+            vertical-align: top;
+        }
+
+        .advanced-product-option input[type="checkbox"], .advanced-product-option input[type="radio"] {
+            display: none;
+        }
+		.advanced-product-option .typeofcut input[type="checkbox"], .advanced-product-option .typeofcut input[type="radio"] {
+			top: 20px;     margin: 5px 5px;     width: 95px;     height: 35px;display: block;     position: absolute;     opacity: 0; }
+		
+		.advanced-product-option .shape input[type="checkbox"], .advanced-product-option  .shape input[type="radio"] {
+    display: block; 
+    position: absolute;
+    opacity: 0;
+    top: 10px;
+  margin: 5px 5px;
+    width: 65px;
+    height: 65px;
+}
+
+/* .advanced-product-option .cutouts input[type="checkbox"], .advanced-product-option .cutouts input[type="radio"] ,
+.advanced-product-option .holes input[type="checkbox"], .advanced-product-option .holes input[type="radio"]{
+			top: 20px;     margin: 5px 5px;  width: 38px;    height: 38px; } */
+.shape .options-list .field , .typeofcut .options-list .field,.cutouts .options-list .field ,.holes .options-list .field { position:relative;}
+
+        .advanced-product-option .field input.input-text {
+            width: auto;
+            background: transparent;
+            border: none;
+            padding: 2px 5px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .shape .options-list .field {
+            margin-right: 10px;
+        }
+
+        .page-layout-1column .product-info-main {
+            position: relative;
+        }
+
+        .sums {
+            visibility: hidden;
+            /*  display: none;
+    */ min-height: 50px;
+            /* position: absolute;
+        float: right;
+        top: 0;
+         left: 102%;*/
+            position: relative;
+            display: flex;
+            /*    border-left: 2px solid #21293c;
+    */
+        }
+
+        .advanced-product-option > .field {
+            border-top: 2px solid #ccc;
+            padding-top: 21px;
+        }
+
+        .shape span.swatch-illusion img {
+            width: 75px;
+            height: 75px;
+        }
+        /*.sums {
+      display: none;
+            min-height: 50px;
+          position: absolute;
+        float: left;
+        top: 7%;
+        padding: 10px 10px;
+        right: 7%;
+
+        border-left: 2px solid #ccc;
+    }*/
+        /*.page-layout-1column .product-info-main {
+        border-right: 2px solid #ccc;  }*/
+        .sums p {
+            width: 200px;
+        }
+
+            .sums p span {
+                text-transform: capitalize;
+            }
+
+        /* Desktops and laptops ----------- */
+        @media only screen and (min-width : 1024px) {
+            /* Styles */
+
+            .page-layout-1column .product-info-main, .page-layout-1column .product.media {
+                width: 40%;
+                float: left;
+            }
+
+            .product-info-main {
+                margin-left: 20px;
+            }
+        }
+
+
+         .summary {
+            background: #495a8336;
+            padding: 10px;
+            margin-left: 10px;
+        } 
+
+        .options-list .field label span {
+            display: none !important;
+        }
+		
+		.typeofcut .field {
+    display: inline-block;
+    margin-right: 10px;
+}
+.typeofcut .options-list.nested {
+    display: inline-block !important;
+} .typeofcut .options-list .field label span {
+            display: block !important;
+        }
+.typeofcut .feild {
+    display: inline-flex;
+}
+.advanced-product-option .typeofcut .product-color-swatches { margin:unset; }
+
+
+.typeofcut .field {
+    display: inline-block;
+    margin-right: 10px;
+}
+.typeofcut .options-list .field label.label { display: inline-table !important; margin:10px 0 0 0;}
+
+/* ipad */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1)
+  {
+	  .sums {display: inline-table;} 
+
+  }
+/* ipad pro */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 2)  
+  {
+	  .page-layout-1column.advanced-option-page .product-info-main, .page-layout-1column.advanced-option-page .product.media { width: 35%; }
+	  .sums #canvas { width:215px; } .sums {display: flex;} 
+	  	  	  .advanced-product-option .field label.label:first-child span { font-size: 8px !important; } 
+
+  }
+  @media only screen 
+  and (max-device-width: 768px) 
+  {
+	  .advanced-product-option .field label.label:first-child span { font-size: 10px; } 
+	  	  .advanced-product-option .field label.label:first-child span { font-size: 8px !important; } 
+
+
+  }
+  
+  div#width {
+    position: absolute;
+    top:  220px; /* 48%; */
+    left: 120px;
+}
+
+div#length {
+    position: absolute;
+    top: 21%;
+    left: 10px;
+    transform: rotate(270deg);
+}
+div#anglec {
+    position: absolute;
+    top: 21%;
+    left: 250px;
+    transform: rotate(270deg);
+}
+
+div#cutlength {
+    position: absolute;
+    top: 33%;
+    left: 140px;
+}
+
+ #loader { 
+            border: 12px solid #f3f3f3; 
+            border-radius: 50%; 
+            border-top: 12px solid #444444; 
+            width: 70px; 
+            height: 70px; 
+            animation: spin 1s linear infinite; 
+        } 
+          
+        @keyframes spin { 
+            100% { 
+                transform: rotate(360deg); 
+            } 
+        } 
+          
+        .center { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            margin: auto; 
+        } 
+		
+ textarea::placeholder {
+  color: #c1c6cd;  
+}	
+  textarea::-webkit-input-placeholder {
+  color: #c1c6cd;
+}
+
+  textarea:-moz-placeholder { /* Firefox 18- */
+  color: #c1c6cd;  
+}
+
+  textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: #c1c6cd;  
+}
+
+ textarea:-ms-input-placeholder {
+  color: #c1c6cd;  
+}
+
+
+.textcut textarea {
+    height: 55px;
+}
+
+/* .field.textbox.Abc {
+    margin-left: 207px;
+}
+
+.field.shapedata {
+    // position: absolute; 
+    width: 146px;
+    height: 10px;
+}
+
+.cutouts { position:absolute; }
+
+.shapedesign .product.media {
+    width: 30% !important;
+}
+.shapedesign .product-info-main {
+    width: 55% !important;
+} */
+
+.field.file { display:none; }
+.advancedpro .file { display:block !important; }
+
+
+  @media only screen 
+  and (min-device-width: 767px) 
+  {
+.areabasedproduct  .product-info-main {
+    width: 50%;
+}
+.areabasedproduct 
+ .product.media {
+    width: 35%;
+}
+}
+
+@media (max-width: 1340px), (min-width: 1100px) {
+ .areabasedproduct 
+ .product.media {
+    width: 24%;
+}
+}
+@media only  (max-width: 680px) 
+  {
+    .areabasedproduct .advanced-product-option .field label:first-child {
+        min-height: auto;
+    }
+}
+/* .areabasedproduct .field.cutoutsshape {
+    width: 150px;
+    display: inline-grid;
+    height: 116px;
+    margin-right: 10px;
+    float: left;
+}
+
+.areabasedproduct .field.cutoutsshape .checklist {
+    position: absolute;
+}
+
+.areabasedproduct .field.holesshape {
+    width: 150px;
+    display: inline-grid;
+    height: 116px;
+    margin-right: 10px;
+    float: left;
+}
+
+.areabasedproduct .field.holesshape .checklist {
+    position: absolute;
+} */
+ .areabasedproduct .SQUARE   .textbox1 {     display: block ; }
+
+ .areabasedproduct .field.cutoutsshape {
+    width: auto !important;
+    float: left;
+}
+
+.field.textbox.lengthtext {
+    float: left;
+    margin-right: 10px;
+}
+
+ .areabasedproduct .field.textbox.cuts,  .areabasedproduct .field.textbox.pts , .areabasedproduct .field.textbox.huts {
+    width: 170px !important;     margin-left: 10px;
+}
+ .areabasedproduct .advanced-product-option .field label:first-child {     min-height: 37px; }
+ .areabasedproduct .field.holesshape {
+    width:  auto !important;
+    float: left;
+    margin-right: 10px;
+}
+
+
+ .areabasedproduct .field.cmt {
+    width: 100% !important;
+    clear: both;
+    border: unset;
+    /* margin-top: 30px; */
+}
+
+ .areabasedproduct .cleardiv {
+    width: 100%;
+    clear: both;
+}
+.field.file { display:none; }
+
+p.mage-error.cuterror {
+    position: absolute;
+}
+input.input-text::placeholder {
+  color: #666666;
+} 
+
+.textbox span.tooltip-icon.tooltip.toolstip {
+    margin: 0;
+    top: 5px;display: inline-block;
+}
+</style>
+
+
+
+<script>
+ require([
+     "jquery",
+     "mage/translate",
+     "mage/adminhtml/events",
+        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+ ], function(jQuery){
+     setTimeout(function() {
+		  /*  if (jQuery("body").hasClass("page-product-advanced-option")) { console.log("apo24");
+				if(jQuery('body .comment textarea ').length) {  jQuery('body .comment textarea').attr('id', "comment");
+				wysiwygcompany_description = new wysiwygSetup("comment", { 
+						"width":"99%",  // defined width of editor
+						"height":"200px", // height of editor
+						"plugins":[{"name":"image"}], // for image
+						"tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+					 }
+				 });
+				 wysiwygcompany_description.setup("exact");
+				 
+				                     jQuery("body #comment").css('border','2px solid red');
+
+		   } } if (jQuery("body").hasClass("page-product-advanced-option")) { console.log("apo24");
+				if(jQuery('body .comment textarea ').length) {  jQuery('body .comment textarea').attr('id', "comment");
+				wysiwygcompany_description = new wysiwygSetup("comment", { 
+						"width":"99%",  // defined width of editor
+						"height":"200px", // height of editor
+						"plugins":[{"name":"image"}], // for image
+						"tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+					 }
+				 });
+				 wysiwygcompany_description.setup("exact");
+				 
+				                     jQuery("body #comment").css('border','2px solid red');
+
+		   } } if (jQuery("body").hasClass("page-product-advanced-option")) { console.log("apo24");
+				if(jQuery('body .comment textarea ').length) {  jQuery('body .comment textarea').attr('id', "comment");
+				wysiwygcompany_description = new wysiwygSetup("comment", { 
+						"width":"99%",  // defined width of editor
+						"height":"200px", // height of editor
+						"plugins":[{"name":"image"}], // for image
+						"tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+					 }
+				 });
+				 wysiwygcompany_description.setup("exact");
+				 
+				                     jQuery("body #comment").css('border','2px solid red');
+
+		   } } if (jQuery("body").hasClass("page-product-advanced-option")) { console.log("apo24");
+				if(jQuery('body .comment textarea ').length) {  jQuery('body .comment textarea').attr('id', "comment");
+				wysiwygcompany_description = new wysiwygSetup("comment", { 
+						"width":"99%",  // defined width of editor
+						"height":"200px", // height of editor
+						"plugins":[{"name":"image"}], // for image
+						"tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+					 }
+				 });
+				 wysiwygcompany_description.setup("exact");
+				 
+				                     jQuery("body #comment").css('border','2px solid red');
+
+		   } } if (jQuery("body").hasClass("page-product-advanced-option")) { console.log("apo24");
+				if(jQuery('body .comment textarea ').length) {  jQuery('body .comment textarea').attr('id', "comment");
+				wysiwygcompany_description = new wysiwygSetup("comment", { 
+						"width":"99%",  // defined width of editor
+						"height":"200px", // height of editor
+						"plugins":[{"name":"image"}], // for image
+						"tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+					 }
+				 });
+				 wysiwygcompany_description.setup("exact");
+				 
+				                     jQuery("body #comment").css('border','2px solid red');
+
+		   } } */
+	}, 4500);
+ });
+</script>
+<script type="text/javascript">
+require([
+    'jquery',
+], function ($) {
+	
+	var isMobile = false; //initiate as false
+// device detection
+if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) { 
+      $("body .product-options-bottom .price-box ,body .product-options-bottom .box-tocart ").addClass('hide');
+	}
+	
+/* 	  document.onreadystatechange = function() { 
+            if (document.readyState !== "complete") { 
+			        if($("body .advanced-product-option").find('.field').length !== 0) {
+						   document.querySelector( 
+                  "#loader").style.display = "none"; 
+                document.querySelector( 
+                  "body").style.visibility = "visible"; 
+                } else {  document.querySelector( 
+                  "body").style.visibility = "hidden"; 
+                document.querySelector( 
+					"#loader").style.visibility = "visible";  }
+            } else { 
+                document.querySelector( 
+                  "#loader").style.display = "none"; 
+                document.querySelector( 
+                  "body").style.visibility = "visible"; 
+            } 
+        };  */
+
+ $(document).ready(function() {
+
+  console.log(" load first ");
+            $(document).on('click','#calculate',function() {
+				
+				  
+				$('body .mage-error').each(function() {
+					$(this).remove();
+				});
+				
+                var form = 'body #product_addtocart_form';
+                if ($(form).validation() && $(form).validation('isValid')) {
+                    console.log("validation true");   //true
+                } 
+                else { 
+                    console.log("validation false");
+                    return false;
+                }
+
+                $('#loading-image').show();
+
+                $('.product-info-price').find('span.price').hide();  
+                $('.box-tocart').hide();
+                var selected_options = {};
+                jQuery('div.swatch-attribute').each(function(k,v){
+                    var attribute_id    = jQuery(v).attr('attribute-id');
+                    var option_selected = jQuery(v).attr('option-selected');
+                    //console.log(attribute_id, option_selected);
+                    if(!attribute_id || !option_selected){
+                      return; }
+                      // if(!$.isNumeric(option_selected)){ jQuery( this ).append("<p class='error'> This is required field </p>");  }
+                    selected_options[attribute_id] = option_selected;
+                });
+
+                var product_id_index = jQuery('[data-role=swatch-options]').data('mageSwatchRenderer').options.jsonConfig.index;
+                var found_ids = []; var selected_product_id; var shape__ = "-";
+                jQuery.each(product_id_index, function(product_id,attributes){
+                    var productIsSelected = function(attributes, selected_options){
+                        return _.isEqual(attributes, selected_options);
+                    }
+                    if(productIsSelected(attributes, selected_options)){  console.log(product_id);
+                       // found_ids.push(product_id);
+                         selected_product_id = product_id; console.log(selected_product_id);
+                    }
+                });
+                var length = 0; var width = 0; var thick = 0;
+
+                var isvalid =  false;
+                jQuery('div.swatch-attribute').each(function(k,v){
+                  if($(this).find('.swatch-attribute-selected-option').text() == "")
+                  {
+                    isvalid = false; jQuery( this ).append('<p class="mage-error">This is required field</p>');
+                    setTimeout(function() {     jQuery('.mage-error').remove();   }, 2000);
+                  }else {  isvalid = true; }
+                });
+
+
+
+                jQuery( "body #product-options-wrapper .field.required" ).each(function() {
+                    var txt =  jQuery( this ).find( ".label" ).text(); console.log(txt);
+                    if(jQuery.trim(txt) == "length" || jQuery.trim(txt) == "Length" || jQuery.trim(txt) == "LENGTH" )
+                     {
+                        length = jQuery( this ).find(".input-text").val(); console.log(length);
+					 if(!$.isNumeric(length)  ){  isvalid = false;
+                          jQuery( this ).find('.control ').append('<p class="mage-error">This is required field</p>');
+                        setTimeout(function() {  jQuery('.mage-error').remove();   }, 2000);
+							}
+						else {   isvalid = true; } console.log("length st"+isvalid);
+                    }
+
+                    if(jQuery.trim(txt) == "width" || jQuery.trim(txt) == "Width" || jQuery.trim(txt) == "WIDTH" )
+                    {
+                        width = jQuery( this ).find(".input-text").val(); console.log(width);
+                    }
+                    /*if(jQuery.trim(txt) == "depth" || jQuery.trim(txt) == "Depth" )
+                    {
+                       var depth = jQuery( this ).find(".input-text").val(); console.log(val);
+                    }*/
+                });
+
+                    if($('body .length_b input[type=text] ').length ){if( $('body .length_b input[type=text] ').val().length !== 0){						 
+						   isvalid = true;
+                        }
+                        else {
+                            isvalid = false;  
+							jQuery( 'body .length_b  ' ).parent().append('<p class="mage-error">Please enter length</p>');								
+					} }
+					
+					if($('body .cutlength input[type=text] ').length ){if( $('body .cutlength input[type=text] ').val().length !== 0){						 
+						   isvalid = true;
+                        }
+                        else {
+                            isvalid = false;  
+							jQuery( 'body .cutlength  ' ).parent().append('<p class="mage-error">Please enter length</p>');								
+					} }
+                   
+					if($('body .width_a input ').length) { if( $('body .width_a input[type=text] ').val().length !== 0){						 
+						   isvalid = true;
+                        }
+                        else {
+                            isvalid = false;  
+							jQuery( 'body .width_a  ' ).parent().append('<p class="mage-error">Please enter width</p>');								; 
+					} }
+                   
+                    
+					if($('body .diameter input ').length) {if( $('body .diameter input[type=text] ').val().length !== 0){						 
+						   isvalid = true;
+                        }
+                        else {
+                            isvalid = false;  
+							jQuery( 'body .diameter  ' ).parent().append('<p class="mage-error">Please enter diameter</p>');
+								 
+					} }
+                                       console.log(isvalid+" befire isvalid  ");
+
+					
+                   
+                     if($('body .cutout input ').length) { 
+                        var checkedNum = $('body input[name="aop[19][]"]:checked').length;
+						if (checkedNum) { 
+							 $('body .cutout').each(function() {
+                                if($(this).parent().css('display') != 'none')
+                                {
+									if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true; 
+									}
+									else { isvalid = false;  
+										$(this).parent().append('<p class="mage-error">Please enter cutout size</p>');								
+									}
+                                }								   
+							   }); 
+						
+					   }  
+                         var checkedNum1 = $('body input[name="aop[34][]"]:checked').length;
+                        if (checkedNum1) { 
+                             $('body .cutout').each(function() {
+                                if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true; 
+                                    }
+                                    else { isvalid = false;  
+                                        $(this).parent().append('<p class="mage-error">Please enter cutout size</p>');                              
+                                    }
+                                }                                  
+                               }); 
+                        
+                       } 
+                       var checkedNum11 = $('body input[name="aop[36][]"]:checked').length;
+                        if (checkedNum11) { 
+                             $('body .cutout').each(function() {
+                                if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true; 
+                                    }
+                                    else { isvalid = false;  
+                                        $(this).parent().append('<p class="mage-error">Please enter cutout size</p>');                              
+                                    }
+                                }                                  
+                               }); 
+                        
+                       } 
+
+                    } 
+					
+					 if($('body .position input ').length) { 
+
+                        var checkedNum = $('body input[name="aop[19][]"]:checked').length;
+						if (checkedNum) {
+						 $('body .position').each(function() {
+                            if($(this).parent().css('display') != 'none')
+                                {
+									if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true;
+									}
+									else { isvalid = false;  
+										if($(this).parent().find('.mage-error').length === 0) { $(this).parent().append('<p class="mage-error">Please enter position </p>');	 }							
+									}	
+                                }							   
+							   });
+                        }
+                        var checkedNum1 = $('body input[name="aop[20][]"]:checked').length;
+                        if (checkedNum1) {
+                         $('body .position').each(function() {
+                            if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true;
+                                    }
+                                    else { isvalid = false;  
+                                       if($(this).parent().find('.mage-error').length === 0) {  $(this).parent().append('<p class="mage-error">Please enter position </p>');  }                                
+                                    }   
+                                }                              
+                               });
+                        }
+                        var checkedNum11 = $('body input[name="aop[34][]"]:checked').length;
+                        if (checkedNum11) {
+                         $('body .position').each(function() {
+                            if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true;
+                                    }
+                                    else { isvalid = false;  
+                                       if($(this).parent().find('.mage-error').length === 0) {  $(this).parent().append('<p class="mage-error">Please enter position </p>'); }                                
+                                    }   
+                                }                              
+                               });
+                        }
+                        var checkedNum11_ = $('body input[name="aop[35][]"]:checked').length;
+                        if (checkedNum11_) {
+                         $('body .position').each(function() {
+                            if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true;
+                                    }
+                                    else { isvalid = false;  
+                                       if($(this).parent().find('.mage-error').length === 0) {  $(this).parent().append('<p class="mage-error">Please enter position </p>'); }                                
+                                    }   
+                                }                              
+                               });
+                        }
+                        var checkedNum11_1 = $('body input[name="aop[36][]"]:checked').length;
+                        if (checkedNum11_1) {
+                         $('body .position').each(function() {
+                            if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true;
+                                    }
+                                    else { isvalid = false;  
+                                      if($(this).parent().find('.mage-error').length === 0) {   $(this).parent().append('<p class="mage-error">Please enter position </p>'); }                                
+                                    }   
+                                }                              
+                               });
+                        }
+                       var checkedNum11_11 = $('body input[name="aop[37][]"]:checked').length;
+                        if (checkedNum11_11) {
+                         $('body .position').each(function() {
+                            if($(this).parent().css('display') != 'none')
+                                {
+                                    if(  $(this).find('input[type=text] ').val().length !== 0){ //isvalid = true;
+                                    }
+                                    else { isvalid = false;  
+                                       if($(this).parent().find('.mage-error').length === 0) {  $(this).parent().append('<p class="mage-error">Please enter position </p>'); }                                
+                                    }   
+                                }                              
+                               });
+                        }
+						
+										
+					 }
+ 
+						if($('body .hole input ').length) {  
+
+                            var checkedNum = $('body input[name="aop[20][]"]:checked').length;
+        					if (checkedNum) {   
+        							   $('body .hole').each(function() {
+                                        if($(this).parent().css('display') != 'none')
+                                        {
+        									if(  $(this).find('input[type=text] ').val().length !== 0){ isvalid = true; }
+        									else { isvalid = false;  
+        										$(this).parent().append('<p class="mage-error">Please enter hole size</p>');								
+        									}	
+                                        }							   
+        							   });
+        						
+        					}
+                            var checkedNum1 = $('body input[name="aop[35][]"]:checked').length;
+                            if (checkedNum1) {   
+                                       $('body .hole').each(function() {
+                                        if($(this).parent().css('display') != 'none')
+                                        {
+                                            if(  $(this).find('input[type=text] ').val().length !== 0){ isvalid = true; }
+                                            else { isvalid = false;  
+                                                $(this).parent().append('<p class="mage-error">Please enter hole size</p>');                                
+                                            }   
+                                        }                              
+                                       });
+                                
+                            }
+
+                             var checkedNum11 = $('body input[name="aop[37][]"]:checked').length;
+                            if (checkedNum11) {   
+                                       $('body .hole').each(function() {
+                                        if($(this).parent().css('display') != 'none')
+                                        {
+                                            if(  $(this).find('input[type=text] ').val().length !== 0){ isvalid = true; }
+                                            else { isvalid = false;  
+                                                $(this).parent().append('<p class="mage-error">Please enter hole size</p>');                                
+                                            }   
+                                        }                              
+                                       });
+                                
+                            }
+
+                     } 
+					
+					                                       console.log(isvalid+" after isvalid  ");
+
+					
+					if($('body .angleb input ').length) {if( $('body .angleb input[type=text] ').val().length !== 0){						 
+						   isvalid = true;
+                        }
+                        else {
+                            isvalid = false;  
+							jQuery( 'body .angleb  ' ).parent().append('<p class="mage-error">Please enter angle</p>');								
+					} }
+                   
+					
+					if($('body .anglec input ').length ){if( $('body .anglec input[type=text] ').val().length !== 0){						 
+						   isvalid = true;
+                        }
+                        else {
+                            isvalid = false;  
+							jQuery( 'body .anglec ' ).parent().append('<p class="mage-error">Please enter angle</p>');							
+					} }
+                   
+
+
+
+                    if($("body .advanced-product-option").find('.shape').length !== 0) {
+
+                        $("body .shape input[type=radio]:checked").each(function() {
+                            var txt =  jQuery( this ).parent().find( ".label" ).text(); console.log(txt);
+						
+                            if($.trim(txt) == "circle" || $.trim(txt) == "Circle" || $.trim(txt) == "CIRCLE" )
+                            {
+								shape__ = "Circle";
+                                var dia = jQuery( ".diameter" ).find(".input-text").val(); 
+                                console.log(dia+" -- Dia");
+                                length = dia; width = dia;
+
+                            }
+                            if($.trim(txt) == "Square" || $.trim(txt) == "Square" || $.trim(txt) == "SQUARE" )
+                            {
+                                shape__ = "Square";
+								width = jQuery( ".width_a" ).find(".input-text").val(); 
+                                console.log(width+" -- width_a");
+                                length = jQuery( ".width_a" ).find(".input-text").val(); 
+                                console.log(length+" -- length_b");
+
+                            }
+                            if($.trim(txt) == "triangle" || $.trim(txt) == "Triangle" || $.trim(txt) == "TRIANGLE" )
+                            {
+								shape__ = "Triangle";
+                               /*  var nums = [];
+                                $("body .advanced-product-option input[type=text]").each( function() { nums.push( $(this).val() ); });
+                                var max = Math.max.apply(Math, nums);
+                                length = max; width = max; 
+                                console.log(max+" -- len trianlge"); */
+									 width = jQuery( ".width_a" ).find(".input-text").val(); 
+                                console.log(width+" -- width_a");
+                                length = jQuery( ".length_b" ).find(".input-text").val(); 
+                                console.log(length+" -- length_b");
+
+                            }
+                            if($.trim(txt) == "rectangle" || $.trim(txt) == "Rectangle" || $.trim(txt) == "RECTANGLE" )
+                            {
+								shape__ = "Rectangle";
+                                width = jQuery( ".width_a" ).find(".input-text").val(); 
+                                console.log(width+" -- width_a");
+                                length = jQuery( ".length_b" ).find(".input-text").val(); 
+                                console.log(length+" -- length_b");
+
+                            }
+
+                        });
+						console.log("shjape "+shape__);
+
+
+
+                    }
+					
+					if($("body .advanced-product-option").find('.typeofcut').length !== 0) {
+						var dia = jQuery( ".cutlength" ).find(".input-text").val(); 
+                                console.log(dia+" -- cutlength");
+                                length = dia; width = dia;						
+					}
+                    console.log(isvalid+"  isvalid  ");
+                    var thick1 =$(".swatch-attribute.thickness  div ").attr('aria-activedescendant');
+                    var thick = $("#"+thick1).html(); 
+                    // $("#attribute159").val();
+                           // var length =  $("#options_5_text").val();//  var width =  $("#options_6_text").val();   // var selected_product_id =  $("input[name='selected_configurable_option']").val();
+                    var customurl = "<?php echo $this->getUrl().'calculate'?>";
+                    $("#error-msg").hide();
+
+                    if(isvalid == true)
+                    {
+                        $.ajax({
+                            url: customurl,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                length: length,
+                                width: width,
+                                thick: thick, selected_product_id: selected_product_id,shape : shape__,
+                                productid: <?php echo $productid; ?>
+                            },
+                            success: function(response) {
+                                console.log(' rr '+response);
+                                if(response.status)
+                                {
+                                    var custom_p = response.price;
+                                    // state = response.responseJSON.state;
+                                    console.log(' price '+custom_p);
+                                    $('#custom_price_cal').val(custom_p);
+                                    var pp = parseFloat(0); // var abc = 0;
+
+                                    jQuery("body #product-options-wrapper input[type=radio]:checked").each(function() {
+
+                                        if(this.value == "NaN"){ 
+                                            var abc = 0; 
+                                        }
+                                        if(jQuery(this).attr('price') !== typeof undefined && jQuery(this).attr('price') !== false ){
+                                           var abc = parseFloat(jQuery(this).attr('price'));
+                                        } 
+                                        else{ 
+                                            var abc = 0;   
+                                        }
+                                        if(!$.isNumeric(abc)){ 
+                                            abc = 0; 
+                                        } 
+                                        console.log(abc+"abcc-price");
+                                        pp = pp + abc;  console.log(pp+"pp-price");
+                                        $('body #custom_option_price_cal').val(pp);
+                                    });
+                                    var price_custom_option = $('body #custom_option_price_cal').val();
+                                    var price_advanced_custom_option = $('body #advanced_custom_option_price_cal').val();
+									var qty = $('body #qty').val();
+                                    console.log(price_custom_option);
+                                    var custom_p1 = parseFloat(custom_p);
+									
+                                    if($.isNumeric(price_custom_option))
+                                    {   
+                                        custom_p1 = parseFloat(custom_p1) +  parseFloat(price_custom_option);
+                                    }
+                                    if($.isNumeric(price_advanced_custom_option))
+                                    {   
+                                        custom_p1 = parseFloat(custom_p1) +  parseFloat(price_advanced_custom_option);
+                                    }
+									
+									var final_ = qty * custom_p1 ;
+																			 final_ = final_.toFixed(2);
+                                    $('span.price').text('£'+final_);
+                                    $('.box-tocart').show();$('.price-box').find('span.price').show();
+
+                                }
+                                else {                   
+                                    console.log(' msg '+response.msg);
+                                                        //setTimeout(function() {
+                                    $("#error-msg").show().html("<p>"+response.msg+"</p>");
+                                    $('#error-msg').hide().delay(2000).fadeIn(400);      // }, 2000 );
+                                }
+                            },
+                            complete: function(response) {
+                                $('#loading-image').hide();
+
+                            },
+
+                        }); 
+                    }
+                    setTimeout(function() {  
+                                $('#loading-image').hide(); 
+                            }, 2000); 
+                    
+
+            });
+		 });
+	});
+</script>
+
+
+<script type="text/javascript">
+    require(['jquery','Magento_Catalog/js/price-utils','jquery/ui'], function ($,priceUtils)
+    {
+     $(document).ready(function(){
+
+
+        $('body .options-list  input').on('change', function(){
+
+        var finalPrice='200.55';
+         var c_price = jQuery('#custom_price_cal').val();
+           if(!$.isNumeric(c_price)){ c_price = 0; }
+                       var pp = parseFloat(0); // var abc = 0;
+
+            jQuery("body #product-options-wrapper input[type=radio]:checked").each(function() {
+
+             if(this.value == "NaN"){ var abc = 0; }
+             if(jQuery(this).attr('price') !== typeof undefined && jQuery(this).attr('price') !== false )
+             {
+               var abc = parseFloat(jQuery(this).attr('price'));
+             } else{ var abc = 0;   }
+               if(!$.isNumeric(abc)){ abc = 0; } console.log(abc+"abcc-price");
+               pp = pp + abc;  console.log(pp+"pp-price");
+               $('body #custom_option_price_cal').val(pp);
+            });
+              var price_custom_option = $('body #custom_option_price_cal').val();
+              console.log(price_custom_option);
+         // var price_custom_option = $('input[type=radio]:checked', '.options-list').attr('price');
+          //if(price_custom_option.length == 0) { price_custom_option = 0; }
+              console.log(price_custom_option);
+         finalPrice = c_price + price_custom_option;
+
+                   //   finalPrice = finalPrice + parseFloat(price_custom_option);
+        finalPrice=(pricePerText*textObjects)+(pricePerImage*imageObjects);
+
+        formatedPrice = priceUtils.formatPrice(parseFloat(finalPrice));
+        jQuery('span.price-final_price > span.price-wrapper > span.price').text(formatedPrice);
+
+        });
+
+
+    });
+
+    });
+</script>

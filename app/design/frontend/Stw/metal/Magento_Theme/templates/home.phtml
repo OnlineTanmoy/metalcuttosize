@@ -1,0 +1,121 @@
+     
+<?php 
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+//echo $mediaUrl." --- ". $block->getMediaUrl();
+
+?>
+          
+<!-- 
+                <div class="container px-5 py-5"> 
+                        <div class="row"> 
+                            <div class="col mx-1">Aluminium</div> 
+                            <div class="col mx-1">Brass</div> 
+                            <div class="col mx-1">copper</div> 
+                            <div class="col mx-1">Midsteel</div> 
+                            <div class="col mx-1">Stainlesss steel</div> 
+                        </div> 
+                </div> -->
+
+
+                 <?php //echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_productslider')->toHtml(); ?>
+                
+
+
+        
+        <main class="main">
+         <?php /* ?>   <div class="home-top-container">
+                                 <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_banner_block')->toHtml(); ?>
+
+            </div><!-- End .home-top-container -->
+
+            <div class="container">
+                <h2 class="subtitle">
+                    <span>Featured Products</span>
+                </h2>
+                
+                <div class="featured-products " id="featured_product">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_productslider')->toHtml(); ?>
+
+                </div><!-- End .featured-products -->
+            </div><!-- End .container -->
+
+            <div class="mb-5"></div><!-- margin -->
+
+            <div class="banners-section" id="category_slider">
+                <div class="container" >
+                    <h2 class="subtitle text-center"><span>BROWSE OUR CATEGORIES</span></h2>
+                     <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_category_banners')->toHtml(); ?>
+
+                </div><!-- End .container -->
+            </div><!-- End .banners-section -->
+
+            <div class="mb-5"></div><!-- margin --> <?php */ ?>
+
+            <div class="container arrived-products">
+              <!--   <h2 class="subtitle">
+                    <span>Different Metal Types</span>
+                </h2>
+ -->
+                <div class="row row-sm">
+                        
+                     <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_justarrived')->toHtml(); ?>
+   
+                </div>
+            </div><!-- End .container -->
+
+            <div class="mb-5"></div><!-- margin -->
+<?php /* ?>
+            <div class="partners-container" id="brands-slider-demo-10">
+                <div class="container">
+                    <div class="partners-carousel owl-carousel owl-theme">
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/1.png" alt="logo">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/2.png" alt="logo">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/3.png" alt="logo">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/4.png" alt="logo">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/5.png" alt="logo">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/2.png" alt="logo">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="<?php echo $mediaUrl; ?>wysiwyg/home/images/logos/1.png" alt="logo">
+                        </a>
+                    </div><!-- End .partners-carousel -->
+                </div><!-- End .container -->
+            </div><!-- End .partners-container -->  <?php */ ?>
+        </main><!-- End .main -->
+        <script type="text/javascript">
+            
+            require(['jquery','cpowlcarousel'],function($){
+
+                $("#featured_products .products-grid .product-items").owlCarousel({autoplay:true,autoplayTimeout:5000,autoplayHoverPause:true,loop:true,navRewind:true,margin:0,nav:true,navText:["<em class='porto-icon-angle-left'></em>","<em class='porto-icon-angle-right'></em>"],dots:false,responsive:{0:{items:2},768:{items:3},992:{items:3},1200:{items:4}}});
+
+                
+            $("#category_slider .owl-carousel").owlCarousel({items:4,autoplay:true,autoplayTimeout:5000,autoplayHoverPause:true,loop:true,navRewind:true,margin:20,pagination:false,navigation:true,nav:true,navText:["<em class='porto-icon-left-open-big'></em>","<em class='porto-icon-right-open-big'></em>"],dots:false,responsive:{0:{items:2},768:{items:3},992:{items:3},1200:{items:4}} });
+                
+            $("#brands-slider-demo-10 .owl-carousel").owlCarousel({autoplay:true,autoplayTimeout:5000,autoplayHoverPause:true,pagination:false,navigation:true,navigationText: ["<em class='porto-icon-left-open-big'></em>","<em class='porto-icon-right-open-big'></em>"],
+margin:30,nav:true,navText:["<em class='porto-icon-left-open-big'></em>","<em class='porto-icon-right-open-big'></em>"],dots:false,loop:true,responsive:{0:{items:2},640:{items:3},768:{items:4},992:{items:5},1200:{items:5}}});
+
+        });
+        </script>
+		<style>
+.footer-bottom img {
+    width: auto;
+}		@media screen and (max-width: 576px) 
+		{
+	.modes-mode{border-radius:0} 
+    .cms-home  .columns {  display: block!important; }
+		.justarrived span.title { font: 400 1.2rem/1.1 "Oswald", sans-serif;} }
+		</style>

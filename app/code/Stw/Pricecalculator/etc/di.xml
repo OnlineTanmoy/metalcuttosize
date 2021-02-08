@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+<type name="Magento\Catalog\Block\Product\ListProduct">
+    <plugin name="firstproduct-category-mod" type="Stw\Pricecalculator\Block\Catalog\Product\ListProduct" sortOrder="1"/>
+</type>
+</config>

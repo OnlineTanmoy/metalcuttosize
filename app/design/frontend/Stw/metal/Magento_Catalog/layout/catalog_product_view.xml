@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page layout="2column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+<!--           <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/>
+      <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
+ -->    
+
+        <referenceBlock name="product.info.summary">
+           <block class="Magento\Catalog\Block\Product\View" name="product.info.summ" as="brand" template="Magento_Catalog::product/view/summary.phtml"></block>
+        </referenceBlock>  
+        <move element="product.info.stock.sku" destination="product.info.main" after="page.main.title"/>
+        <move element="product.info.main" destination="content" after="product.info.media"/>
+   <move element="product.info.overview" destination="product.info.main" after="product.info.stock.sku"/>
+         <move element="page.main.title" destination="product.info.main" before="-"/>
+         <move element="product.info.summ" destination="content" after="product.info.main"/>
+       <!-- <move element="page.main.title" destination="product.info.media" after="-"/> -->
+        <move element="product.info.stock.sku" destination="product.info.media" after="-"/>  
+        <move element="product.info.overview" destination="product.info.media" after="product.info.stock.sku"/>  
+        <referenceBlock name="reviews.tab" remove="true" />
+        <move element="product.info.price" destination="product.info.main" before="product.info.addtocart"/>
+
+<referenceBlock name="product.info.review" remove="true"/>
+<referenceBlock name="product.info.addto" remove="true"/>
+<referenceBlock name="product.info.price" remove="true"/>
+<referenceBlock name="product.info.detailed" remove="true"/>
+<referenceBlock name="product.info.details" remove="true" />
+<referenceBlock name="product.info.description" remove="true" />
+
+    </body>
+</page>
+			
